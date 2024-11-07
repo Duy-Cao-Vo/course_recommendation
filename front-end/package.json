@@ -1,0 +1,40 @@
+{
+  "name": "front-end",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build",
+    "lint": "vue-cli-service lint"
+  },
+  "dependencies": {
+    "@riophae/vue-treeselect": "^0.4.0",
+    "alga-js": "^0.1.0-wood-2",
+    "ant-design-vue": "^4.2.5",
+    "apexcharts": "^3.33.1",
+    "axios": "^1.7.7",
+    "bootstrap-vue": "^1.5.1",
+    "chart.js": "^3.7.1",
+    "core-js": "^3.23.3",
+    "jwt-decode": "^3.1.2",
+    "vue": "^2.7.16",
+    "vue-apexcharts": "^1.6.2",
+    "vue-blob-json-csv": "^0.1.7",
+    "vue-json-csv": "^1.2.10",
+    "vue-router": "^3.2.0",
+    "vue-text-highlight": "^2.0.10",
+    "vuex": "^4.1.0"
+  },
+  "devDependencies": {
+    "@babel/eslint-parser": "^7.0.0",
+    "@vue/cli-plugin-babel": "^5.0.8",
+    "@vue/cli-plugin-eslint": "^5.0.8",
+    "@vue/cli-plugin-router": "^5.0.8",
+    "@vue/cli-plugin-vuex": "^5.0.8",
+    "@vue/cli-service": "^3.3.1",
+    "eslint": "^8.0.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "sass": "^1.26.5",
+    "sass-loader": "^8.0.2"
+  }
+}

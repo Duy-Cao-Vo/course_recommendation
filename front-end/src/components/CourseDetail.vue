@@ -4,6 +4,7 @@
     style="width: 100% !important"
     class="flex-display course-detail"
   >
+  <template v-slot:cover>
     <img
       style="
         padding-left: 24px !important;
@@ -12,11 +13,11 @@
         height: 40px !important;
       "
       class="image"
-      slot="cover"
       alt="Image"
       :src="image"
     />
-    <template slot="actions">
+  </template>
+    <template v-slot:actions>
       <a
         :href="this.courseDetail.crsLink"
         target="_blank"
@@ -38,7 +39,7 @@
     </template>
 
     <a-card-meta class="card-content-margin">
-      <template slot="description" class="detail-course">
+      <template v-slot:description>
         <a-tabs :default-active-key="1">
           <a-tab-pane
             :key="1"
@@ -347,6 +348,7 @@ export default {
       imageCousera: "@/assets/coursera.png",
       imageUdemy: "@/assets/udemy.png",
       imageEdx: "@/assets/edx.png",
+      localCourseDetail: { ...this.courseDetail },
     };
   },
   created() {
@@ -459,10 +461,10 @@ export default {
       }
     },
     improveRating() {
-      this.courseDetail.crsRating = parseFloat(
+      this.localCourseDetail.crsRating = parseFloat(
         this.courseDetail.crsRating
       ).toFixed(2);
-      this.courseDetail.rating = this.roundToHalf(this.courseDetail.crsRating);
+      this.localCourseDetail.rating = this.roundToHalf(this.localCourseDetail.crsRating);
     },
   },
 };

@@ -1,15 +1,9 @@
 <template>
   <a-card hoverable style="width: 100% !important" class="flex-display course-detail program-card">
-    <img style="
-        padding-left: 10px !important;
-        padding-top: 10px !important;
-        padding-right: 15px !important;
-        padding-bottom: 15px !important;
-        width: 10px !important;
-        height: 10px !important;
-      "
-      class="image" slot="cover" alt="Image" :src="image" />
-    <template slot="actions">
+    <template v-slot:cover>
+      <img class="image" alt="Image" :src="image" />
+    </template>
+    <template v-slot:actions>
       <a-button
         type="primary"
         class="button-add"
@@ -21,8 +15,8 @@
       </a-button>
     </template>
 
-    <a-card-meta  class="card-content-margin">
-      <template slot="description" class="detail-course">
+    <a-card-meta class="card-content-margin">
+      <template v-slot:description>
         <h3 style="margin-bottom: 0px !important; font-size: 19px !important">
               {{ programDetail.proName }}
             </h3>

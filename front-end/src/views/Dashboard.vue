@@ -271,7 +271,7 @@
                 </a-table-column>
                 </a-table-column-group> -->
           <a-table-column key="action" title="Action">
-            <template slot-scope="text, record">
+            <template v-slot="text, record">
               <span>
                 <b-button
                   @click="(showTeachSkill = true), custom(record)"
@@ -513,7 +513,7 @@ import axios from "axios";
 import Treeselect from "vue3-treeselect";
 
 export default {
-  name: "Dashboard",
+  name: "DashboardPage",
   props: {},
   data() {
     return {

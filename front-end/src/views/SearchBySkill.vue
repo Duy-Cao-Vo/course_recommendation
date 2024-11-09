@@ -1,143 +1,219 @@
 <template>
   <div>
-    <div style="background-color: rgb(254, 254, 254)">
-      <ListFreeCourses />
-      <AllListPopularCourse :displayRecentView="false" />
-    </div>
+    <ListFreeCourses
+      :topFreeCourse="topFreeCourses"
+      :topFreeLoad="freeCourseLoading"
+    />
+    <AllListPopularCourse
+      defaltTabtitle="All"
+      :popularCoursesOfAll="popularCoursesOfAll"
+      :loadingCardOfAll="loadingCardOfAll"
+      :numberList="0"
+    />
     <PopularTopics />
-    <div style="background-color: rgb(253, 253, 253)">
+    <a-row
+      type="flex"
+      justify="center"
+      class="search-mobile-screen"
+      style="margin-bottom: 15px"
+    >
+      <a-col :sm="24" :lg="20" :xl="18">
+        <span class="large-title">Course Catalog </span>
+      </a-col>
+    </a-row>
+    <a-row type="flex" class="justify-screen search-mobile-screen">
       <a-row
         type="flex"
         justify="center"
         class="search-mobile-screen"
         style="margin-bottom: 10px"
       >
-        <a-col :sm="24" :lg="20" :xl="18">
-          <span class="large-title">Course Catalog </span>
-        </a-col>
       </a-row>
-      <a-row type="flex" class="justify-screen search-mobile-screen">
-        <a-col :xs="8" :lg="5" class="search-screen max-mobile-screen">
-          <a-menu
-            class="filter-bar"
-            style="width: 100%"
-            :default-selected-keys="['1']"
-            mode="inline"
-          >
-            <a-menu-item
-              class="btn-title-skill"
-              key="Knowledges"
-              @click="showModalKnowledge"
-            >
-              Knowledge
-            </a-menu-item>
-            <a-menu-item
-              class="btn-title-skill"
-              key="platfrom"
-              @click="showModalPlatfrom"
-            >
-              Platform
-            </a-menu-item>
-            <a-menu-item
-              class="btn-title-skill"
-              key="tool"
-              @click="showModalTool"
-            >
-              Tool
-            </a-menu-item>
-            <a-menu-item
-              class="btn-title-skill"
-              key="language"
-              @click="showModalLanguage"
-            >
-              Program Language
-            </a-menu-item>
-            <a-menu-item
-              class="btn-title-skill"
-              key="framework"
-              @click="showModalFramework"
-            >
-              Framework
-            </a-menu-item>
-          </a-menu>
-        </a-col>
-        <a-col
-          :xs="16"
-          :lg="{ offset: 0, span: 16 }"
-          :xl="{ offset: 0, span: 12 }"
-          class="search-screen max-mobile-screen"
+      <a-col :xs="8" :lg="4" class="search-screen max-mobile-screen">
+        <a-menu
+          class="filter-bar"
+          style="width: 100%"
+          :default-selected-keys="['1']"
+          mode="inline"
         >
-          <div v-if="!this.loadingCourse">
-            <div v-if="this.courses.length != 0">
-              <a-select
-                show-search
-                placeholder="Select website"
-                option-filter-prop="children"
-                style="
-                  top: -12px;
-                  width: 200px;
-                  float: right !important;
-                  margin-top: 9px;
-                "
-                :filter-option="filterOption"
-                @change="selectWeb"
-                default-value="All"
-              >
-                <a-select-option
-                  v-for="value in webs"
-                  :key="value"
-                  :value="value"
-                >
-                  {{ value }}
-                </a-select-option>
-              </a-select>
-              <h5
-                style="
-                  color: rgb(2, 160, 2) !important;
-                  overflow: hidden;
-                  max-height: 100px;
-                  display: -webkit-box;
-                  -webkit-line-clamp: 3;
-                  -webkit-box-orient: vertical;
-                "
-              >
-                {{ courses.length }} results<span v-if="listSearch.length > 0">
-                  for
-                  <span style="text-transform: capitalize">{{
-                    listSearch
-                  }}</span></span
-                >
-              </h5>
-              <CourseDetail
-                v-for="course in this.displayCourse"
-                v-bind:key="course.id"
-                v-bind:courseDetail="course"
-                style="margin-bottom: 10px; width: 100% !important"
-              />
-            </div>
-            <div v-else>
-              <h2
-                style="color: rgb(112, 112, 112) !important; font-weight: 700"
-              >
-                Sorry, we couldn't find any matching results
-              </h2>
-            </div>
-          </div>
-          <div v-else>
-            <a-card
-              :loading="true"
+          <a-menu-item
+            class="btn-title-skill"
+            key="Career"
+            @click="showModalCareer"
+          >
+            Career
+          </a-menu-item>
+          <a-menu-item
+            class="btn-title-skill"
+            key="Knowledges"
+            @click="showModalKnowledge"
+          >
+            Knowledge
+          </a-menu-item>
+          <a-menu-item
+            class="btn-title-skill"
+            key="platfrom"
+            @click="showModalPlatfrom"
+          >
+            Platform
+          </a-menu-item>
+          <a-menu-item
+            class="btn-title-skill"
+            key="tool"
+            @click="showModalTool"
+          >
+            Tool
+          </a-menu-item>
+          <a-menu-item
+            class="btn-title-skill"
+            key="language"
+            @click="showModalLanguage"
+          >
+            Program Language
+          </a-menu-item>
+          <a-menu-item
+            class="btn-title-skill"
+            key="framework"
+            @click="showModalFramework"
+          >
+            Framework
+          </a-menu-item>
+        </a-menu>
+      </a-col>
+      <a-col
+        :xs="16"
+        :lg="{ offset: 0, span: 16 }"
+        :xl="{ offset: 0, span: 12 }"
+        class="search-screen max-mobile-screen"
+      >
+        <div v-if="!this.loadingCourse">
+          <div v-if="courses.length != 0">
+            <a-select
+              show-search
+              placeholder="Select website"
+              option-filter-prop="children"
               style="
-                height: 160px !important;
-                min-height: 160px !important;
-                width: 100% !important;
+                top: -12px;
+                width: 200px;
+                float: right !important;
+                margin-top: 9px;
+              "
+              :filter-option="filterOption"
+              @change="selectWeb"
+              default-value="All"
+            >
+              <a-select-option
+                v-for="value in webs"
+                :key="value"
+                :value="value"
+              >
+                {{ value }}
+              </a-select-option>
+            </a-select>
+            <h5
+              style="
+                color: rgb(2, 160, 2) !important;
+                overflow: hidden;
+                max-height: 100px;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
               "
             >
-              whatever content
-            </a-card>
+              {{ courses.length }} results
+              <span v-if="!isEmpty"> for {{ this.lastCareer }}</span
+              ><span v-if="listSearch.length > 0">
+                with
+                <span style="text-transform: capitalize">{{
+                  listSearch
+                }}</span></span
+              >
+            </h5>
+            <CourseDetail
+              v-for="course in displayCourse"
+              v-bind:key="course.id"
+              v-bind:courseDetail="course"
+              style="margin-bottom: 10px"
+            />
           </div>
-        </a-col>
-      </a-row>
-    </div>
+          <div v-else>
+            <h2 style="color: rgb(112, 112, 112) !important; font-weight: 700">
+              Sorry, we couldn't find any matching results
+            </h2>
+          </div>
+        </div>
+        <div v-else>
+          <a-card
+            :loading="true"
+            style="height: 160px !important; min-height: 160px !important"
+          >
+            whatever content
+          </a-card>
+        </div>
+      </a-col>
+    </a-row>
+    <a-modal
+      id="career-modal"
+      class="show-skill"
+      :visible="showCareer"
+      @cancel="handleCancel"
+      :closable="false"
+      :maskClosable="false"
+    >
+      <template v-slot:title>
+        <div class="skill-header">
+          <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
+            Career
+          </p>
+          <div style="display: flex">
+            <a-button
+              style="margin-left: 10px"
+              class="btn-reset"
+              @click="
+                () => {
+                  this.chosenCareer = '';
+                  this.notifyReset();
+                }
+              "
+              >Reset</a-button
+            >
+            <a-input
+              @change="(event) => (this.careerSearch = event.target.value)"
+              style="max-width: 200px; margin-left: 5px"
+              placeholder="Search career"
+            />
+          </div>
+        </div>
+      </template>
+      <template v-slot:footer>
+        <a-button
+          class="btn-cancel"
+          @click="
+            () => {
+              handleCancel();
+              this.onCancelCareer();
+            }
+          "
+          >Cancel</a-button
+        >
+        <a-button
+          class="btn-confirm"
+          @click="
+            () => {
+              handleCancel();
+              this.onConfirmCareer();
+            }
+          "
+          >Confirm</a-button
+        >
+      </template>
+
+      <a-radio-group
+        :options="displayCareer"
+        :value="chosenCareer"
+        @change="onChooseCareer"
+      />
+    </a-modal>
     <a-modal
       id="knowledge-modal"
       class="show-skill"
@@ -146,7 +222,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template slot="title">
+      <template v-slot:title>
         <div class="skill-header">
           <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
             Knowledge
@@ -163,21 +239,15 @@
               "
               >Reset</a-button
             >
-            <a-button
-              style="margin-left: 10px"
-              class="btn-confirm"
-              @click="selectAllKnowledge"
-              >Select all</a-button
-            >
             <a-input
               @change="(event) => (this.knowledgeSearch = event.target.value)"
               style="max-width: 200px; margin-left: 5px"
-              placeholder="Search skill"
+              placeholder="Search knowledge"
             />
           </div>
         </div>
       </template>
-      <template slot="footer">
+      <template v-slot:footer>
         <a-button
           class="btn-cancel"
           @click="
@@ -198,8 +268,8 @@
               this.searchPlatforms = [];
               this.searchTools = [];
               this.searchPrograminglanguages = [];
-              this.checkedTools = [];
               this.checkedPlatforms = [];
+              this.checkedTools = [];
               this.checkedPrograminglanguages = [];
               this.checkedFrameworks = [];
               onClickSearch();
@@ -222,7 +292,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template slot="title">
+      <template v-slot:title>
         <div class="skill-header">
           <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
             Platform
@@ -239,21 +309,15 @@
               "
               >Reset</a-button
             >
-            <a-button
-              style="margin-left: 10px"
-              class="btn-confirm"
-              @click="selectAllPlatform"
-              >Select all</a-button
-            >
             <a-input
               @change="(event) => (this.platformSearch = event.target.value)"
               style="max-width: 200px; margin-left: 5px"
-              placeholder="Search skill"
+              placeholder="Search platform"
             />
           </div>
         </div>
       </template>
-      <template slot="footer">
+      <template v-slot:footer>
         <a-button
           class="btn-cancel"
           @click="
@@ -270,14 +334,14 @@
             () => {
               handleCancel();
               this.searchPlatforms = this.checkedPlatforms;
-              this.searchPrograminglanguages = [];
               this.searchFrameworks = [];
               this.searchKnowledges = [];
               this.searchTools = [];
+              this.searchPrograminglanguages = [];
               this.checkedKnowledges = [];
-              this.checkedFrameworks = [];
               this.checkedTools = [];
               this.checkedPrograminglanguages = [];
+              this.checkedFrameworks = [];
               onClickSearch();
             }
           "
@@ -297,7 +361,32 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template slot="footer">
+      <template v-slot:title>
+        <div class="skill-header">
+          <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
+            Tool
+          </p>
+          <div class="small-flex" style="display: flex">
+            <a-button
+              style="margin-left: 10px"
+              class="btn-reset"
+              @click="
+                () => {
+                  this.checkedTools = [];
+                  this.notifyReset();
+                }
+              "
+              >Reset</a-button
+            >
+            <a-input
+              @change="(event) => (this.toolSearch = event.target.value)"
+              style="max-width: 200px; margin-left: 5px"
+              placeholder="Search tool"
+            />
+          </div>
+        </div>
+      </template>
+      <template v-slot:footer>
         <a-button
           class="btn-cancel"
           @click="
@@ -315,8 +404,8 @@
               handleCancel();
               this.searchTools = this.checkedTools;
               this.searchFrameworks = [];
-              this.searchPlatforms = [];
               this.searchKnowledges = [];
+              this.searchPlatforms = [];
               this.searchPrograminglanguages = [];
               this.checkedKnowledges = [];
               this.checkedPlatforms = [];
@@ -327,37 +416,6 @@
           "
           >Confirm</a-button
         >
-      </template>
-      <template slot="title">
-        <div class="skill-header">
-          <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
-            Tool
-          </p>
-          <div class="small-flex" style="display: flex">
-            <a-button
-              style="margin-left: 10px"
-              class="btn-reset"
-              @click="
-                () => {
-                  this.checkedTools = [];
-                  this.notifyReset();
-                }
-              "
-              >Reset</a-button
-            >
-            <a-button
-              style="margin-left: 10px"
-              class="btn-confirm"
-              @click="selectAllTool"
-              >Select all</a-button
-            >
-            <a-input
-              @change="(event) => (this.toolSearch = event.target.value)"
-              style="max-width: 200px; margin-left: 5px"
-              placeholder="Search skill"
-            />
-          </div>
-        </div>
       </template>
       <a-checkbox-group
         :options="displayTool"
@@ -373,7 +431,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template slot="title">
+      <template v-slot:title>
         <div class="skill-header">
           <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
             Programing Language
@@ -390,23 +448,15 @@
               "
               >Reset</a-button
             >
-            <a-button
-              style="margin-left: 10px"
-              class="btn-confirm"
-              @click="selectAllProgramLanguage"
-              >Select all</a-button
-            >
             <a-input
-              @change="
-                (event) => (this.programinglanguageSearch = event.target.value)
-              "
+              @change="(event) => (this.programinglanguageSearch = event.target.value)"
               style="max-width: 200px; margin-left: 5px"
-              placeholder="Search skill"
+              placeholder="Search programing language"
             />
           </div>
         </div>
       </template>
-      <template slot="footer">
+      <template v-slot:footer>
         <a-button
           class="btn-cancel"
           @click="
@@ -424,8 +474,8 @@
               handleCancel();
               this.searchPrograminglanguages = this.checkedPrograminglanguages;
               this.searchFrameworks = [];
-              this.searchPlatforms = [];
               this.searchKnowledges = [];
+              this.searchPlatforms = [];
               this.searchTools = [];
               this.checkedKnowledges = [];
               this.checkedPlatforms = [];
@@ -451,7 +501,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template slot="title">
+      <template v-slot:title>
         <div class="skill-header">
           <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
             Framework
@@ -468,21 +518,15 @@
               "
               >Reset</a-button
             >
-            <a-button
-              style="margin-left: 10px"
-              class="btn-confirm"
-              @click="selectAllFramework"
-              >Select all</a-button
-            >
             <a-input
               @change="(event) => (this.frameworkSearch = event.target.value)"
               style="max-width: 200px; margin-left: 5px"
-              placeholder="Search skill"
+              placeholder="Search framework"
             />
           </div>
         </div>
       </template>
-      <template slot="footer">
+      <template v-slot:footer>
         <a-button
           class="btn-cancel"
           @click="
@@ -500,8 +544,8 @@
               handleCancel();
               this.searchFrameworks = this.checkedFrameworks;
               this.searchPrograminglanguages = [];
-              this.searchPlatforms = [];
               this.searchKnowledges = [];
+              this.searchPlatforms = [];
               this.searchTools = [];
               this.checkedKnowledges = [];
               this.checkedPlatforms = [];
@@ -513,7 +557,6 @@
           >Confirm</a-button
         >
       </template>
-
       <a-checkbox-group
         :options="displayFramework"
         :value="this.checkedFrameworks"
@@ -524,35 +567,49 @@
 </template>
 
 <script>
-import ListFreeCourses from "@/components/ListFreeCourses.vue";
-
 import axios from "axios";
 import CourseDetail from "@/components/CourseDetail.vue";
 import AllListPopularCourse from "@/components/AllListPopularCourse.vue";
 import PopularTopics from "@/components/PopularTopics.vue";
 import { FEConstants } from "../FEConstants";
 import jwt_decode from "jwt-decode";
+import ListFreeCourses from "@/components/ListFreeCourses.vue";
+
 export default {
-  name: "SearchBySkill",
+  name: "SearchByCareer",
   data() {
     return {
+      numberList: 0,
       knowledges: [],
       platforms: [],
       tools: [],
       programinglanguages: [],
       frameworks: [],
       courses: [],
+      careers: [],
+      chosenCareer: "",
+      lastCareer: "",
+      detailCareer: [],
+      loadingCourse: true,
+      popularCoursesOfAll: [],
+      loadingCardOfAll: true,
+      titleList: [],
+      dataCourseLists: [],
+      loadingCourseSkill: true,
+      topFreeCourses: [],
+      freeCourseLoading: true,
       showKnowledge: false,
       showPlatform: false,
       showTool: false,
       showLanguage: false,
       showFramework: false,
+      showCareer: false,
       knowledgeSearch: "",
       platformSearch: "",
       toolSearch: "",
       programinglanguageSearch: "",
       frameworkSearch: "",
-      loadingCourse: true,
+      careerSearch: "",
       searchKnowledges: [],
       searchPlatforms: [],
       searchTools: [],
@@ -563,13 +620,14 @@ export default {
       displayTool: [],
       displayProgramingLanguage: [],
       displayFramework: [],
+      webs: [],
+      displayCourse: [],
+
       checkedKnowledges: [],
       checkedPlatforms: [],
       checkedTools: [],
       checkedPrograminglanguages: [],
       checkedFrameworks: [],
-      webs: [],
-      displayCourse: [],
     };
   },
   components: {
@@ -583,46 +641,14 @@ export default {
   },
   watch: {
     $route(to) {
-      if (to.name === "SearchBySkill") {
-        let uri = window.location.search.substring(1);
-        let params = new URLSearchParams(uri);
-        let query = "";
-        this.removeSearchedSkill();
-        if (this.$route.query.type) {
-          switch (this.$route.query.type) {
-            case "platform":
-              this.searchPlatforms = [this.$route.query.value];
-              this.checkedPlatforms = [this.$route.query.value];
-              this.onClickSearch();
-              break;
-            case "knowledge":
-              this.searchKnowledges = [this.$route.query.value];
-              this.checkedKnowledges = [this.$route.query.value];
-              this.onClickSearch();
-              break;
-            case "tool":
-              this.searchTools = [this.$route.query.value];
-              this.checkedTools = [this.$route.query.value];
-              this.onClickSearch();
-              break;
-            case "framework":
-              this.searchFrameworks = [this.$route.query.value];
-              this.checkedFrameworks = [this.$route.query.value];
-              this.onClickSearch();
-              break;
-            case "programinglanguage":
-              this.searchPrograminglanguages = [this.$route.query.value];
-              this.checkedPrograminglanguages = [this.$route.query.value];
-              this.onClickSearch();
-              break;
-            default:
-              break;
-          }
+      if (to.name === "SearchByCareer") {
+        if (this.$route.query.career) {
+          this.chosenCareer = this.$route.query.career;
+          this.lastCareer = this.$route.query.career;
+          this.getSkill(this.$route.query.career);
+          this.onConfirmCareer();
         } else {
-          if (params.get("query")) {
-            query = params.get("query");
-          }
-          this.getCourse(query);
+          this.getCourse();
         }
       }
     },

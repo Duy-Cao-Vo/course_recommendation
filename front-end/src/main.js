@@ -4,13 +4,14 @@ import router from './router';
 import store from './store';
 import axios from 'axios';
 import { Row, Col, Menu, Icon, Input, Card, Checkbox, Steps, Button, Rate, Radio, Tag, Tabs, Select, notification, message, Modal, Table, Avatar } from 'ant-design-vue';
-import 'bootstrap-vue-next/dist/bootstrap-vue-next.css';
+import 'bootstrap-vue/dist/bootstrap-vue.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'chart.js';
 import VueBlobJsonCsv from './components/VueBlobJsonCsv.vue';
 import JsonCSV from './components/VueJsonCsv.vue';
-import { ButtonPlugin, NavbarPlugin, SidebarPlugin, TabsPlugin, DropdownPlugin, IconsPlugin, FormSelectPlugin, BootstrapVue } from 'bootstrap-vue-next';
+import { ButtonPlugin, NavbarPlugin, SidebarPlugin, TabsPlugin, DropdownPlugin, IconsPlugin, FormSelectPlugin, BootstrapVue } from 'bootstrap-vue';
 import VueApexCharts from 'vue-apexcharts';
+import ApexChartComponent from 'vue-apexcharts'
 
 axios.defaults.baseURL = 'http://coursearch.ntmthu.net:8000';
 Vue.config.productionTip = false;
@@ -45,7 +46,7 @@ Vue.use(Table);
 Vue.use(Avatar);
 Vue.prototype.$notification = notification;
 Vue.prototype.$message = message;
-Vue.component('apexchart', VueApexCharts);
+Vue.component('ApexChartComponent', ApexChartComponent)
 
 new Vue({
   router,

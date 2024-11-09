@@ -13,19 +13,20 @@
           class="course-similar"
         >
           <a-sub-menu key="Knowledges" class="title-similar">
-            <span
-              class="title-checklist"
-              style="margin-left: 0px !important"
-              slot="title"
-              >Similar Courses</span
-            >
+            <template v-slot:title>
+              <span
+                class="title-checklist"
+                style="margin-left: 0px !important"
+                >Similar Courses</span
+              >
+            </template>
             <CourseDetail
               style="
                 padding-left: 5px !important;
                 padding-right: 5px !important;
                 margin-bottom: 5px !important;
               "
-              v-for="course in similarCourses"
+              v-for="course in localSimilarCourses"
               :key="course.id"
               :courseDetail="course"
             ></CourseDetail>
@@ -49,6 +50,11 @@ export default {
     similarCourses: Object,
     index: Number,
   },
+  data() {
+    return {
+      localSimilarCourses: [...this.similarCourses],
+    };
+  },
   created() {
     this.getSimilarCourses();
   },
@@ -61,7 +67,7 @@ export default {
           },
         })
         .then((res) => {
-          this.similarCourses = res.data;
+          this.localSimilarCourses = res.data;
         })
         .catch((err) => {
           console.log(err);
@@ -70,80 +76,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss">
-.title-similar .ant-menu-submenu-title {
-  padding-left: 10px !important;
-  padding-right: 100px !important;
-  background-color: rgb(245, 245, 245);
-  margin-bottom: 0px !important;
-  margin-top: 0px !important;
-}
-.course-similar {
-  padding-left: 1px !important;
-  padding-right: 1px !important;
-  border-left: 1px solid rgb(233, 233, 233) !important;
-  border-right: 1px solid rgb(233, 233, 233) !important;
-  border-bottom: 1px solid rgb(233, 233, 233) !important;
-  border-radius: 1px !important;
-  background-color: rgb(245, 245, 245) !important;
-}
-.title-similar .ant-menu {
-  padding-left: 10px !important;
-  padding-right: 10px !important;
-  padding-bottom: 5px !important;
-  background-color: rgb(245, 245, 245) !important;
-}
-.course-tabs .ant-tabs-bar {
-  margin-bottom: 0px !important;
-  font-weight: 600;
-
-  // margin-left: 3.5rem !important;
-}
-.border-item {
-  border-bottom: 4px solid rgb(228, 228, 228);
-  padding-bottom: 20px;
-}
-.course-tabs .ant-tabs-tab-active,
-.course-tabs .ant-tabs-tab:hover {
-  color: rgb(68, 211, 68) !important;
-  // margin-left: 3.5rem !important;
-}
-.course-tabs .ant-tabs-ink-bar {
-  color: rgb(68, 211, 68) !important;
-  background-color: rgb(68, 211, 68) !important;
-}
-.style-index-course {
-  font-size: 1.4rem;
-  font-weight: 500 !important;
-  color: rgb(68, 211, 68) !important;
-  padding-top: 40px !important;
-  margin-bottom: 0px !important;
-  text-align: center;
-}
-.style-index-value {
-  font-size: 2.8rem;
-  font-weight: 500 !important;
-  color: rgb(68, 211, 68) !important;
-  text-align: center;
-  margin-top: -10px;
-}
-@media all and (max-width: 767.6px) {
-  .style-index-course {
-    font-size: 1.6rem !important;
-    font-weight: 500 !important;
-    color: rgb(68, 211, 68) !important;
-    padding-top: 0px !important;
-    text-align: center;
-    margin-bottom: 0px !important;
-  }
-  .style-index-value {
-    font-size: 2.8rem;
-    font-weight: 500 !important;
-    color: rgb(68, 211, 68) !important;
-    text-align: center;
-    margin-bottom: -5px;
-    margin-top: -10px;
-  }
-}
-</style>

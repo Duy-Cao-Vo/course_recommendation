@@ -120,7 +120,7 @@
     </div>
 
     <a-modal v-model="show" title="Confirm" style="margin-top: 180px;" >
-    <template slot="footer">
+    <template v-slot:footer>
         <a-button class="btn-redirect" key="back" @click="show=false, showLoading=true, onClickCrawl()">
           Redirect me to page
         </a-button>
@@ -166,7 +166,7 @@ import Preloader from '../components/PreLoader.vue'
 import 'vue3-treeselect/dist/vue3-treeselect.css'
 import DomainCategory from '../data/data.json';
 export default {
-  name: "Crawl",
+  name: "CrawlComponent",
   props: {
   },
   components: { Treeselect, Preloader},

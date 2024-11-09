@@ -4,19 +4,20 @@
     style="width: 100% !important"
     class="flex-display course-detail course-complete"
   >
-    <img
-      class="image"
-      slot="cover"
-      alt="Image"
-      :src="image"
-      style="
-        padding-left: 24px !important;
-        padding-top: 24px !important;
-        width: 40px !important;
-        height: 40px !important;
-      "
-    />
-    <template slot="actions">
+    <template v-slot:cover>
+      <img
+        class="image"
+        alt="Image"
+        :src="image"
+        style="
+          padding-left: 24px !important;
+          padding-top: 24px !important;
+          width: 40px !important;
+          height: 40px !important;
+        "
+      />
+    </template>
+    <template v-slot:actions>
       <a
         :href="this.courseDetail.crsLink"
         target="_blank"
@@ -48,7 +49,7 @@
     </template>
 
     <a-card-meta class="card-content-margin">
-      <template slot="description" class="detail-course">
+      <template v-slot:description>
         <a-tabs :default-active-key="1">
           <a-tab-pane
             :key="1"
@@ -487,11 +488,11 @@ export default {
       }
     },
     improveRating() {
-      this.courseDetail.crsRating = parseFloat(
-        this.courseDetail.crsRating
-      ).toFixed(2);
-      this.courseDetail.rating = this.roundToHalf(this.courseDetail.crsRating);
-    },
+      let courseDetailCopy = { ...this.courseDetail };
+      courseDetailCopy.crsRating = parseFloat(courseDetailCopy.crsRating).toFixed(2);
+      courseDetailCopy.rating = this.roundToHalf(courseDetailCopy.crsRating);
+      this.$emit('update:courseDetail', courseDetailCopy);
+    }
   },
 };
 </script>

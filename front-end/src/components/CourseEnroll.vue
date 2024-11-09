@@ -1,39 +1,11 @@
 <template>
   <a-card hoverable style="width: 100% !important" class="flex-display course-detail course-enroll">
-    <img class="image" slot="cover" alt="Image" :src="image" style="padding-left: 24px !important;padding-top: 24px !important; width: 40px !important; height: 40px !important" />
-    <template slot="actions">
-      <a
-        :href="this.courseDetail.crsLink"
-        target="_blank"
-        style="width: 100% !important"
-        ><a-button type="primary" class="button-detail"
-          >More detail</a-button
-        ></a
-      >
-
-      <a-button
-        type="primary"
-        class="button-add"
-        style="width: 100% !important"
-        ghost
-        v-if="token"
-        @click="completeCourse"
-      >
-        Complete
-      </a-button>
-      <a-button
-        type="danger"
-        style="width: 100% !important"
-        ghost
-        v-if="token"
-        @click="removeCourse"
-      >
-        Remove
-      </a-button>
+    <template v-slot:cover>
+      <img class="image" alt="Image" :src="image" style="padding-left: 24px !important;padding-top: 24px !important; width: 40px !important; height: 40px !important" />
     </template>
 
     <a-card-meta class="card-content-margin">
-      <template slot="description" class="detail-course">
+      <template v-slot:description>
         <a-tabs :default-active-key="1">
           <a-tab-pane
             :key="1"
@@ -318,6 +290,7 @@ export default {
       imageCousera: "@/assets/coursera.png",
       imageUdemy: "@/assets/udemy.png",
       imageEdx: "@/assets/edx.png",
+      localCourseDetail: { ...this.courseDetail }
     };
   },
   created() {
@@ -434,107 +407,11 @@ export default {
       }
     },
     improveRating() {
-      this.courseDetail.crsRating = parseFloat(
+      this.localCourseDetail.crsRating = parseFloat(
         this.courseDetail.crsRating
       ).toFixed(2);
-      this.courseDetail.rating = this.roundToHalf(this.courseDetail.crsRating);
+      this.localCourseDetail.rating = this.roundToHalf(this.localCourseDetail.crsRating);
     },
   },
 };
 </script>
-
-<style lang="scss">
-.course-detail .ant-tabs-bar {
-  margin-bottom: 0px !important;
-}
-.course-detail .ant-card-body {
-  margin-bottom: 20px !important;
-}
-
-.button-add {
-  border-color: green !important;
-  color: green !important;
-  &:hover {
-    background-color: green !important;
-    color: white !important;
-  }
-}
-
-.course-detail .ant-tabs-tab-active,
-.course-detail .ant-tabs-tab:hover {
-  color: rgb(68, 211, 68) !important;
-  // margin-left: 3.5rem !important;
-}
-.course-detail .ant-tabs-ink-bar {
-  color: rgb(68, 211, 68) !important;
-  background-color: rgb(68, 211, 68) !important;
-}
-
-.button-detail {
-  background-color: green !important;
-  border-color: green !important;
-}
-.course-detail .ant-card-actions {
-  display: flex !important;
-  flex-direction: column !important;
-  background-color: white !important;
-  margin-left: 0px;
-  margin-right: 20px ;
-  margin-bottom: 20px !important;
-}
-
-.course-enroll .ant-card-actions {
-  display: flex !important;
-  flex-direction: column !important;
-  background-color: white !important;
-  margin-left: auto !important;
-  margin-right: 20px !important;
-  margin-bottom: 20px !important;
-}
-.course-detail .ant-card-actions {
-  & li {
-    width: 100% !important;
-    margin-bottom: 0px !important;
-  }
-}
-.button-router {
-  position: absolute !important;
-  margin-left: auto !important;
-  left: 56vw;
-}
-.instructor-display {
-  font-size: 0.95em !important;
-  color: rgb(122, 122, 122) !important;
-  margin-bottom: 4px !important;
-}
-.image {
-  padding: 0px !important;
-  width: 10vw !important;
-  height: 10vw !important;
-  min-width: 80px !important;
-  min-height: 80px !important;
-}
-.ant-tag {
-  font-weight: 600 !important;
-  font-size: 0.85em !important;
-  text-transform: capitalize;
-}
-svg {
-  width: 0.85em !important;
-  height: 0.85em !important;
-}
-.rate-display {
-  font-weight: 700 !important;
-  color: rgb(207, 152, 0) !important;
-}
-.enroll-display {
-  font-size: 0.8em !important;
-  color: rgb(122, 122, 122) !important;
-}
-.ant-rate-star {
-  margin-right: 0px !important;
-}
-.ant-card-meta-title {
-  margin: 0px !important;
-}
-</style>

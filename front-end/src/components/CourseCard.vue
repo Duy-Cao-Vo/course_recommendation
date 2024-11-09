@@ -1,7 +1,7 @@
 <template>
   <a-card hoverable class="course-card" :loading="loading">
     <a-card-meta>
-      <template slot="description">
+      <template v-slot:description>
         <p
           style="font-weight: 600; color: black; margin-bottom: 0px !important"
         >
@@ -45,7 +45,9 @@
           >Add Favorite</p
         >
       </template>
-      <a-avatar slot="avatar" :src="image" />
+      <template v-slot:avatar>
+        <a-avatar :src="image" />
+      </template>
     </a-card-meta>
   </a-card>
 </template>
@@ -181,7 +183,6 @@ export default {
   color: rgb(0, 180, 0);
   font-size: 15px !important;
   font-weight: 600 !important;
-  
 }
 .btn-detail:hover {
   color: green !important;

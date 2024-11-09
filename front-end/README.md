@@ -3,7 +3,7 @@
 ## Project setup
 
 ## reuire
-node.js==16
+node.js==18
 ```
 npm install
 ```

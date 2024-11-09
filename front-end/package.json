@@ -8,11 +8,12 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "@vue/compat": "^3.5.12",
     "alga-js": "^0.1.0-beta-17",
-    "ant-design-vue": "^4.2.5",
+    "ant-design-vue": "^4.0.0-rc.6",
     "axios": "^1.7.7",
-    "bootstrap": "^5.3.3",
-    "bootstrap-vue-next": "^0.25.13",
+    "bootstrap": "^4.6.2",
+    "bootstrap-vue": "^2.23.1",
     "chart.js": "^4.4.6",
     "jwt-decode": "^4.0.0",
     "sass": "^1.80.6",
@@ -22,9 +23,16 @@
     "vue-router": "^4.4.5",
     "vue3-highlight-text": "^1.0.7",
     "vue3-treeselect": "^0.1.10",
-    "vuex": "^4.1.0"
+    "vuex": "^4.1.0",
+    "eslint-plugin-vue": "^9.30.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^5.0.8"
+    "@vue/cli-plugin-babel": "~5.0.8",
+    "@vue/cli-plugin-eslint": "~5.0.8",
+    "@vue/cli-plugin-router": "~5.0.8",
+    "@vue/cli-plugin-vuex": "~5.0.8",
+    "@vue/cli-service": "~5.0.8",
+    "@vue/compiler-sfc": "^3.5.12",
+    "eslint-plugin-vue": "^9.30.0"
   }
 }

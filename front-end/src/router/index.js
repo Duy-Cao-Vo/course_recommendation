@@ -1,5 +1,4 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 import Home from '../views/Home.vue';
 import SearchBySkill from "../views/SearchBySkill.vue";
 import RegisterAccount from "../views/RegisterAccount.vue";
@@ -16,8 +15,6 @@ import AddUser from "../views/AddUser.vue";
 import Help from "../views/Help.vue";
 import NER from "../views/NER.vue";
 import Dashboard from "../views/Dashboard.vue";
-
-Vue.use(VueRouter);
 
 const routes = [
   {
@@ -107,9 +104,8 @@ const routes = [
   },
 ];
 
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes
 });
 

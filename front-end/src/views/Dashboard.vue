@@ -508,9 +508,9 @@
 </template>
 
 <script>
-import { $array } from "alga-js/dist/alga.min.js";
+import { $array } from "alga-js";
 import axios from "axios";
-import Treeselect from "@riophae/vue-treeselect";
+import Treeselect from "vue3-treeselect";
 
 export default {
   name: "Dashboard",

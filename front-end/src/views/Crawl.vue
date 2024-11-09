@@ -161,9 +161,9 @@
 <script>
 import axios from "axios"
 import jwt_decode from "jwt-decode"
-import Treeselect from '@riophae/vue-treeselect'
+import Treeselect from 'vue3-treeselect'
 import Preloader from '../components/PreLoader.vue'
-import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import 'vue3-treeselect/dist/vue3-treeselect.css'
 import DomainCategory from '../data/data.json';
 export default {
   name: "Crawl",
@@ -274,8 +274,7 @@ export default {
   }
 };
 </script>
-
-<style src="@riophae/vue-treeselect/dist/vue-treeselect.min.css">
+<style src="vue3-treeselect/dist/vue3-treeselect.css">
 </style>
 <style lang="scss">
 .s009 form {

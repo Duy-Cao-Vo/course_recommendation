@@ -1,6 +1,9 @@
 # front-end
 
 ## Project setup
+
+## reuire
+node.js==16
 ```
 npm install
 ```

@@ -33,7 +33,7 @@ import { FEConstants } from "../FEConstants";
 import jwt_decode from "jwt-decode";
 // @ is an alias to /src
 export default {
-  name: "HomePage",
+  name: "Home",
   data() {
     return {
       detailCareer: [],

@@ -6,7 +6,7 @@
  * Plugin URL  : http://accordionjs.zerowp.com/
  * License     : MIT
  */
-(function ( $ ) {
+;(function ( $ ) {
 
 	"use strict";
 

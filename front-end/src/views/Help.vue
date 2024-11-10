@@ -151,7 +151,7 @@
 
 <script>
 export default {
-  name: "HelpPage",
+  name: "Help",
 };
 </script>
 

@@ -160,7 +160,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template v-slot:title>
+      <template slot="title">
         <div class="skill-header">
           <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
             Career
@@ -185,7 +185,7 @@
           </div>
         </div>
       </template>
-      <template v-slot:footer>
+      <template slot="footer">
         <a-button
           class="btn-cancel"
           @click="
@@ -222,7 +222,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template v-slot:title>
+      <template slot="title">
         <div class="skill-header">
           <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
             Knowledge
@@ -239,15 +239,21 @@
               "
               >Reset</a-button
             >
+            <a-button
+              style="margin-left: 10px"
+              class="btn-confirm"
+              @click="selectAllKnowledge"
+              >Select all</a-button
+            >
             <a-input
               @change="(event) => (this.knowledgeSearch = event.target.value)"
               style="max-width: 200px; margin-left: 5px"
-              placeholder="Search knowledge"
+              placeholder="Search skill"
             />
           </div>
         </div>
       </template>
-      <template v-slot:footer>
+      <template slot="footer">
         <a-button
           class="btn-cancel"
           @click="
@@ -268,8 +274,8 @@
               this.searchPlatforms = [];
               this.searchTools = [];
               this.searchPrograminglanguages = [];
-              this.checkedPlatforms = [];
               this.checkedTools = [];
+              this.checkedPlatforms = [];
               this.checkedPrograminglanguages = [];
               this.checkedFrameworks = [];
               onClickSearch();
@@ -292,7 +298,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template v-slot:title>
+      <template slot="title">
         <div class="skill-header">
           <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
             Platform
@@ -309,15 +315,21 @@
               "
               >Reset</a-button
             >
+            <a-button
+              style="margin-left: 10px"
+              class="btn-confirm"
+              @click="selectAllPlatform"
+              >Select all</a-button
+            >
             <a-input
               @change="(event) => (this.platformSearch = event.target.value)"
               style="max-width: 200px; margin-left: 5px"
-              placeholder="Search platform"
+              placeholder="Search skill"
             />
           </div>
         </div>
       </template>
-      <template v-slot:footer>
+      <template slot="footer">
         <a-button
           class="btn-cancel"
           @click="
@@ -334,14 +346,14 @@
             () => {
               handleCancel();
               this.searchPlatforms = this.checkedPlatforms;
+              this.searchPrograminglanguages = [];
               this.searchFrameworks = [];
               this.searchKnowledges = [];
               this.searchTools = [];
-              this.searchPrograminglanguages = [];
               this.checkedKnowledges = [];
+              this.checkedFrameworks = [];
               this.checkedTools = [];
               this.checkedPrograminglanguages = [];
-              this.checkedFrameworks = [];
               onClickSearch();
             }
           "
@@ -361,32 +373,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template v-slot:title>
-        <div class="skill-header">
-          <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
-            Tool
-          </p>
-          <div class="small-flex" style="display: flex">
-            <a-button
-              style="margin-left: 10px"
-              class="btn-reset"
-              @click="
-                () => {
-                  this.checkedTools = [];
-                  this.notifyReset();
-                }
-              "
-              >Reset</a-button
-            >
-            <a-input
-              @change="(event) => (this.toolSearch = event.target.value)"
-              style="max-width: 200px; margin-left: 5px"
-              placeholder="Search tool"
-            />
-          </div>
-        </div>
-      </template>
-      <template v-slot:footer>
+      <template slot="footer">
         <a-button
           class="btn-cancel"
           @click="
@@ -404,8 +391,8 @@
               handleCancel();
               this.searchTools = this.checkedTools;
               this.searchFrameworks = [];
-              this.searchKnowledges = [];
               this.searchPlatforms = [];
+              this.searchKnowledges = [];
               this.searchPrograminglanguages = [];
               this.checkedKnowledges = [];
               this.checkedPlatforms = [];
@@ -416,6 +403,37 @@
           "
           >Confirm</a-button
         >
+      </template>
+      <template slot="title">
+        <div class="skill-header">
+          <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
+            Tool
+          </p>
+          <div class="small-flex" style="display: flex">
+            <a-button
+              style="margin-left: 10px"
+              class="btn-reset"
+              @click="
+                () => {
+                  this.checkedTools = [];
+                  this.notifyReset();
+                }
+              "
+              >Reset</a-button
+            >
+            <a-button
+              style="margin-left: 10px"
+              class="btn-confirm"
+              @click="selectAllTool"
+              >Select all</a-button
+            >
+            <a-input
+              @change="(event) => (this.toolSearch = event.target.value)"
+              style="max-width: 200px; margin-left: 5px"
+              placeholder="Search skill"
+            />
+          </div>
+        </div>
       </template>
       <a-checkbox-group
         :options="displayTool"
@@ -431,7 +449,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template v-slot:title>
+      <template slot="title">
         <div class="skill-header">
           <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
             Programing Language
@@ -448,15 +466,23 @@
               "
               >Reset</a-button
             >
+            <a-button
+              style="margin-left: 10px"
+              class="btn-confirm"
+              @click="selectAllProgramLanguage"
+              >Select all</a-button
+            >
             <a-input
-              @change="(event) => (this.programinglanguageSearch = event.target.value)"
+              @change="
+                (event) => (this.programinglanguageSearch = event.target.value)
+              "
               style="max-width: 200px; margin-left: 5px"
-              placeholder="Search programing language"
+              placeholder="Search skill"
             />
           </div>
         </div>
       </template>
-      <template v-slot:footer>
+      <template slot="footer">
         <a-button
           class="btn-cancel"
           @click="
@@ -474,8 +500,8 @@
               handleCancel();
               this.searchPrograminglanguages = this.checkedPrograminglanguages;
               this.searchFrameworks = [];
-              this.searchKnowledges = [];
               this.searchPlatforms = [];
+              this.searchKnowledges = [];
               this.searchTools = [];
               this.checkedKnowledges = [];
               this.checkedPlatforms = [];
@@ -501,7 +527,7 @@
       :closable="false"
       :maskClosable="false"
     >
-      <template v-slot:title>
+      <template slot="title">
         <div class="skill-header">
           <p style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px">
             Framework
@@ -518,15 +544,21 @@
               "
               >Reset</a-button
             >
+            <a-button
+              style="margin-left: 10px"
+              class="btn-confirm"
+              @click="selectAllFramework"
+              >Select all</a-button
+            >
             <a-input
               @change="(event) => (this.frameworkSearch = event.target.value)"
               style="max-width: 200px; margin-left: 5px"
-              placeholder="Search framework"
+              placeholder="Search skill"
             />
           </div>
         </div>
       </template>
-      <template v-slot:footer>
+      <template slot="footer">
         <a-button
           class="btn-cancel"
           @click="
@@ -544,8 +576,8 @@
               handleCancel();
               this.searchFrameworks = this.checkedFrameworks;
               this.searchPrograminglanguages = [];
-              this.searchKnowledges = [];
               this.searchPlatforms = [];
+              this.searchKnowledges = [];
               this.searchTools = [];
               this.checkedKnowledges = [];
               this.checkedPlatforms = [];
@@ -557,6 +589,7 @@
           >Confirm</a-button
         >
       </template>
+
       <a-checkbox-group
         :options="displayFramework"
         :value="this.checkedFrameworks"
@@ -648,6 +681,9 @@ export default {
           this.getSkill(this.$route.query.career);
           this.onConfirmCareer();
         } else {
+          this.chosenCareer = "";
+          this.lastCareer = "";
+          this.fetchSkill();
           this.getCourse();
         }
       }

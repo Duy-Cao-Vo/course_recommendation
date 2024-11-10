@@ -22,23 +22,27 @@
         ></a-menu-item
       >
       <a-sub-menu v-if="!isDataAdmin" id="feature-selecting" class="menu-bar">
-        <template #title>
-          <span class="submenu-title-wrapper green-tex small-explore"><strong>Explore</strong></span>
-        </template>
+        <span slot="title" class="submenu-title-wrapper green-tex small-explore"
+          ><strong>Explore</strong></span
+        >
         <a-sub-menu key="setting:1" class="change-bg-color-hover-blue">
-          <template #title>
-            <router-link to="/properties" class="feature-option">Properties</router-link>
-          </template>
+          <span slot="title"
+            ><router-link to="/properties" class="feature-option"
+              >Properties
+            </router-link>
+          </span>
           <a-sub-menu class="change-bg-color-hover-blue">
-            <template #title>
-              <span class="feature-option">Platform</span>
-            </template>
-            <a-menu-item class="skill-value-item" v-for="item in platforms" :key="item" @click="clickPlatform">{{ item }}</a-menu-item>
+            <span slot="title" class="feature-option">Platform</span>
+            <a-menu-item
+              class="skill-value-item"
+              v-for="item in platforms"
+              :key="item"
+              @click="clickPlatform"
+              >{{ item }}</a-menu-item
+            >
           </a-sub-menu>
           <a-sub-menu class="change-bg-color-hover-blue">
-            <template #title>
-              <span class="feature-option">Knowledge</span>
-            </template>
+            <span slot="title" class="feature-option">Knowledge</span>
             <a-menu-item
               class="skill-value-item"
               v-for="item in knowledges"
@@ -49,9 +53,7 @@
           </a-sub-menu>
 
           <a-sub-menu class="change-bg-color-hover-blue">
-            <template #title>
-              <span class="feature-option">Tool</span>
-            </template>
+            <span slot="title" class="feature-option">Tool</span>
             <a-menu-item
               class="skill-value-item"
               v-for="item in tools"
@@ -61,9 +63,7 @@
             >
           </a-sub-menu>
           <a-sub-menu class="change-bg-color-hover-blue">
-            <template #title>
-              <span class="feature-option">Language</span>
-            </template>
+            <span slot="title" class="feature-option">Language</span>
             <a-menu-item
               class="skill-value-item"
               v-for="item in programinglanguages"
@@ -73,9 +73,7 @@
             >
           </a-sub-menu>
           <a-sub-menu class="change-bg-color-hover-blue">
-            <template #title>
-              <span class="feature-option">Framework</span>
-            </template>
+            <span slot="title" class="feature-option">Framework</span>
             <a-menu-item
               class="skill-value-item"
               v-for="item in frameworks"
@@ -86,9 +84,7 @@
           </a-sub-menu>
         </a-sub-menu>
         <a-sub-menu key="setting:3" class="change-bg-color-hover-blue">
-          <template #title>
-            <span style="color: black !important">Programs</span>
-          </template>
+          <span slot="title" style="color: black !important">Programs</span>
           <a-menu-item
             class="skill-value-item"
             v-for="item in careers"
@@ -98,9 +94,10 @@
           >
         </a-sub-menu>
         <a-sub-menu key="setting:2" class="change-bg-color-hover-blue">
-          <template #title>
-            <router-link to="/searchbycareer" class="feature-option">Career</router-link>
-          </template>
+          <span slot="title"
+            ><router-link to="/searchbycareer" class="feature-option"
+              >Career</router-link
+            ></span
           >
           <a-menu-item
             class="skill-value-item"
@@ -171,9 +168,14 @@
         style="padding-right: 0px !important; float: right"
         class="user-space"
       >
-        <template #title>
-          <a-icon type="user" style="transform: scale(2); margin-right: 0px" class="user-icon" />&nbsp;&nbsp;&nbsp;<strong class="username">{{ username }}</strong>
-        </template>
+        <span slot="title"
+          ><a-icon
+            type="user"
+            style="transform: scale(2); margin-right: 0px"
+            class="user-icon"
+          />&nbsp;&nbsp;&nbsp;<strong class="username">{{
+            username
+          }}</strong></span
         >
         <a-menu-item
           v-if="isBasicUser"

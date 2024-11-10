@@ -21,9 +21,7 @@
           :default-selected-keys="['1']"
           mode="inline"
         >
-          <template v-slot:title>
-            <span class="title-checklist">Career</span>
-          </template>
+          <span class="title-checklist" slot="title">Career</span>
           <a-radio-group :options="this.careers" :value="choosenCareer" @change="(value)=> {
             onChooseCareer(value)
             onClickSearch()
@@ -36,7 +34,7 @@
         class="search-screen max-mobile-screen"
       >
       <a-select
-              v-if="localProgramList.length != 0"
+              v-if="programList.length != 0"
               show-search
               placeholder="Select website"
               option-filter-prop="children"
@@ -68,7 +66,7 @@
                 -webkit-box-orient: vertical;
               "
             >
-              {{ localProgramList.length }} results for {{choosenCareer}}
+              {{ programList.length }} results for {{choosenCareer}}
             </h5>
         <div v-if="!this.loadingPrograms">
           <div v-if="this.displayProgram.length > 0">
@@ -102,15 +100,14 @@
 import axios from "axios";
 import ProgramCard from "@/components/ProgramCard.vue";
 export default {
-  name: "ProgramListPage",
+  name: "ProgramList",
   data() {
     return {
       loadingPrograms: true,
       choosenCareer: "",
       displayProgram: [],
-      webs: [],
-      valueWeb: "All",
-      localProgramList: this.programList,
+      webs:[],
+      valueWeb: "All"
     };
   },
   props: {
@@ -121,13 +118,13 @@ export default {
   },
   methods: {
     selectWeb(value) {
-      this.valueWeb = value;
+      this.valueWeb = value
       if (value != "All") {
-        this.displayProgram = this.localProgramList.filter((item) =>
+        this.displayProgram = this.programList.filter((item) =>
           item.course[0].crsLink.includes(value.toLowerCase())
         );
       } else {
-        this.displayProgram = this.localProgramList;
+        this.displayProgram = this.programList;
       }
     },
     async getWeb() {
@@ -163,9 +160,9 @@ export default {
           },
         })
         .then((res) => {
-          this.valueWeb = "All";
+          this.valueWeb = "All"
           this.loadingPrograms = false;
-          this.localProgramList = res.data;
+          this.programList = res.data;
           this.displayProgram = res.data;
         })
         .catch((err) => {
@@ -181,9 +178,9 @@ export default {
           },
         })
         .then((res) => {
-          this.valueWeb = "All";
-          this.localProgramList = res.data;
-          this.displayProgram = res.data;
+          this.valueWeb = "All"
+          this.programList = res.data;
+          this.displayProgram = res.data
           this.loadingPrograms = false;
         })
         .catch((err) => {
@@ -192,7 +189,7 @@ export default {
     },
     fetchCareer() {
       this.careers = JSON.parse(localStorage.getItem("career")).map(
-          (e) => e.creTitle
+        (e) => e.creTitle
       );
       this.detailCareer = JSON.parse(localStorage.getItem("career"));
     },
@@ -201,13 +198,13 @@ export default {
     document.title = "Explore Programs And Grow Your Career | Course Search";
     this.getProgram(this.$route.query.career);
     this.fetchCareer();
-    this.getWeb();
+    this.getWeb()
   },
   watch: {
     $route(to) {
       if (to.name === "ProgramList") {
         document.title =
-            "Explore Programs And Grow Your Career | Course Search";
+          "Explore Programs And Grow Your Career | Course Search";
         this.getProgram(this.$route.query.career);
         this.fetchCareer();
       }
@@ -217,5 +214,4 @@ export default {
 </script>
 
 <style>
-/* Your style code here */
 </style>

@@ -12,9 +12,7 @@
         @change="inputUsername"
         @keyup.enter="onClickRegister"
       >
-        <template v-slot:addonBefore>
-          <a-icon type="user" style="transform: scale(1.25)" />
-        </template>
+        <a-icon slot="addonBefore" type="user" style="transform: scale(1.25)" />
       </a-input>
       <a-input
         class="email-input"
@@ -23,9 +21,7 @@
         @change="inputEmail"
         @keyup.enter="onClickRegister"
       >
-        <template v-slot:addonBefore>
-          <a-icon type="mail" style="transform: scale(1.25)" />
-        </template>
+        <a-icon slot="addonBefore" type="mail" style="transform: scale(1.25)" />
       </a-input>
       <a-input
         class="email-input"
@@ -34,9 +30,7 @@
         @change="inputPassword"
         @keyup.enter="onClickRegister"
       >
-        <template v-slot:addonBefore>
-          <a-icon type="lock" style="transform: scale(1.25)" />
-        </template>
+        <a-icon slot="addonBefore" type="lock" style="transform: scale(1.25)" />
       </a-input>
       <a-input
         class="email-input"
@@ -45,9 +39,7 @@
         @change="retypePassword"
         @keyup.enter="onClickRegister"
       >
-        <template v-slot:addonBefore>
-          <a-icon type="lock" style="transform: scale(1.25)" />
-        </template>
+        <a-icon slot="addonBefore" type="lock" style="transform: scale(1.25)" />
       </a-input>
       <a-button
         type="primary"
@@ -85,14 +77,6 @@ export default {
     password: String,
     rePassword: String,
   },
-  data() {
-    return {
-      localUsername: this.username,
-      localEmail: this.email,
-      localPassword: this.password,
-      localRePassword: this.rePassword,
-    };
-  },
   mounted() {
     if (localStorage.getItem("token")) {
       this.$router.push({
@@ -101,44 +85,44 @@ export default {
     }
   },
   methods: {
-    inputUsername(event) {
-      this.localUsername = event.target.value;
+    inputUsername(value) {
+      this.username = value.target.value;
     },
-    inputEmail(event) {
-      this.localEmail = event.target.value;
+    inputEmail(value) {
+      this.email = value.target.value;
     },
-    inputPassword(event) {
-      this.localPassword = event.target.value;
+    inputPassword(value) {
+      this.password = value.target.value;
     },
-    retypePassword(event) {
-      this.localRePassword = event.target.value;
+    retypePassword(value) {
+      this.rePassword = value.target.value;
     },
     async onClickRegister() {
       if (
-        this.localUsername != "" &&
-        this.localEmail != "" &&
-        this.localPassword != "" &&
-        this.localPassword == this.localRePassword
+        this.username != "" &&
+        this.email != "" &&
+        this.password != "" &&
+        this.password == this.rePassword
       ) {
         this.$message.loading({ content: 'Waiting...', key: "signup" });
         await axios({
           method: "POST",
           url: "api/register/",
           data: {
-            username: this.localUsername,
-            email: this.localEmail,
-            password: this.localPassword,
+            username: this.username,
+            email: this.email,
+            password: this.password,
           },
         })
-            .then(() => {
-              this.$router.push({
-                path: `/login`,
-              });
-              this.$message.success({content: 'Account is created!', key: "signup"});
-            })
-            .catch(() => this.$message.info({content: 'Please use another email address!', key: "signup"}));
+          .then(() => {
+            this.$router.push({
+              path: `/login`,
+            });
+            this.$message.success({ content: 'Account is created!', key: "signup" });
+          })
+          .catch(() => this.$message.info({ content: 'Please use another email address!', key: "signup" }));
       } else {
-        this.$message.info({content: 'Please check your information!', key: "signup"});
+        this.$message.info({ content: 'Please check your information!', key: "signup" });
       }
     },
   },
@@ -149,11 +133,9 @@ export default {
 .email-input .ant-input-group-addon {
   width: 0px !important;
 }
-
 .signup-space .ant-card-head-title {
   font-size: 20px;
 }
-
 .signup-space .ant-card {
   margin-left: auto;
   margin-right: auto;
@@ -161,7 +143,6 @@ export default {
   padding: 0px 5px 20px 5px;
   margin-top: 50px;
 }
-
 .signup-space .email-input {
   padding-bottom: 15px;
   /* padding-bottom: 5px; */

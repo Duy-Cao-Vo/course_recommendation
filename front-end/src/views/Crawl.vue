@@ -120,7 +120,7 @@
     </div>
 
     <a-modal v-model="show" title="Confirm" style="margin-top: 180px;" >
-    <template v-slot:footer>
+    <template slot="footer">
         <a-button class="btn-redirect" key="back" @click="show=false, showLoading=true, onClickCrawl()">
           Redirect me to page
         </a-button>
@@ -161,12 +161,12 @@
 <script>
 import axios from "axios"
 import jwt_decode from "jwt-decode"
-import Treeselect from 'vue3-treeselect'
+import Treeselect from '@riophae/vue-treeselect'
 import Preloader from '../components/PreLoader.vue'
-import 'vue3-treeselect/dist/vue3-treeselect.css'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import DomainCategory from '../data/data.json';
 export default {
-  name: "CrawlComponent",
+  name: "Crawl",
   props: {
   },
   components: { Treeselect, Preloader},
@@ -274,7 +274,8 @@ export default {
   }
 };
 </script>
-<style src="vue3-treeselect/dist/vue3-treeselect.css">
+
+<style src="@riophae/vue-treeselect/dist/vue-treeselect.min.css">
 </style>
 <style lang="scss">
 .s009 form {

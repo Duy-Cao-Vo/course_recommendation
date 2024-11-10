@@ -1,9 +1,6 @@
 # front-end
 
 ## Project setup
-
-## reuire
-node.js==18
 ```
 npm install
 ```
@@ -25,4 +22,3 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
-

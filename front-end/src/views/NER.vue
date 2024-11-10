@@ -127,10 +127,10 @@
 </template>
 
 <script>
-import { $array, $object } from 'alga-js'
+import { $array, $object } from 'alga-js/dist/alga.min.js'
 import axios from 'axios';
-import Treeselect from 'vue3-treeselect'
-import TextHighlight from 'vue3-highlight-text';
+import Treeselect from '@riophae/vue-treeselect'
+import TextHighlight from 'vue-text-highlight';
 export default {
   name: 'NER',
   data() {

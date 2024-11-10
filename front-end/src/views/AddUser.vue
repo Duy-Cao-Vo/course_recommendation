@@ -12,9 +12,7 @@
         @change="inputUsername"
         @keyup.enter="onClickCreate"
       >
-        <template v-slot:addonBefore>
-          <a-icon type="user" style="transform: scale(1.25)" />
-        </template>
+        <a-icon slot="addonBefore" type="user" style="transform: scale(1.25)" />
       </a-input>
       <a-input
         class="email-input"
@@ -23,9 +21,7 @@
         @change="inputEmail"
         @keyup.enter="onClickCreate"
       >
-        <template v-slot:addonBefore>
-          <a-icon type="mail" style="transform: scale(1.25)" />
-        </template>
+        <a-icon slot="addonBefore" type="mail" style="transform: scale(1.25)" />
       </a-input>
       <a-input
         class="email-input"
@@ -34,9 +30,7 @@
         @change="inputPassword"
         @keyup.enter="onClickCreate"
       >
-        <template v-slot:addonBefore>
-          <a-icon type="lock" style="transform: scale(1.25)" />
-        </template>
+        <a-icon slot="addonBefore" type="lock" style="transform: scale(1.25)" />
       </a-input>
       <a-input
         class="email-input"
@@ -45,9 +39,7 @@
         @change="retypePassword"
         @keyup.enter="onClickCreate"
       >
-        <template v-slot:addonBefore>
-          <a-icon type="lock" style="transform: scale(1.25)" />
-        </template>
+        <a-icon slot="addonBefore" type="lock" style="transform: scale(1.25)" />
       </a-input>
       <label class="level-area">
         <span
@@ -59,7 +51,7 @@
         >
           <strong style="font-size: 15px !important">Type user:</strong>
         </span>
-        <a-select key="level" :value="localType" size="large" @change="onChooseType">
+        <a-select key="level" :value="type" size="large" @change="onChooseType">
           <a-select-option value="dataadmin"> Data Admin </a-select-option>
           <a-select-option value="accountadmin">
             Account Admin
@@ -96,15 +88,6 @@ export default {
     rePassword: String,
     type: String,
   },
-  data() {
-    return {
-      localUsername: this.username,
-      localEmail: this.email,
-      localPassword: this.password,
-      localRePassword: this.rePassword,
-      localType: this.type,
-    };
-  },
   mounted() {
     if (!localStorage.getItem("token") || !jwt_decode(localStorage.getItem("token")).is_accountadmin) {
       this.$router.push({
@@ -114,31 +97,31 @@ export default {
   },
   methods: {
     onChooseType(value) {
-      this.localType = value;
-      console.log(this.localType)
+      this.type = value;
+      console.log(this.type)
     },
     inputUsername(value) {
-      this.localUsername = value.target.value;
+      this.username = value.target.value;
     },
     inputEmail(value) {
-      this.localEmail = value.target.value;
+      this.email = value.target.value;
     },
     inputPassword(value) {
-      this.localPassword = value.target.value;
+      this.password = value.target.value;
     },
     retypePassword(value) {
-      this.localRePassword = value.target.value;
+      this.rePassword = value.target.value;
     },
     async onClickCreate() {
       if (
-        this.localUsername != "" &&
-        this.localEmail != "" &&
-        this.localPassword != "" &&
-        this.localPassword == this.localRePassword
-        && this.localType && this.localType != ""
+        this.username != "" &&
+        this.email != "" &&
+        this.password != "" &&
+        this.password == this.rePassword
+        && this.type && this.type != "" 
       ) {
         let api = "register_account_admin/";
-        if(this.localType == "dataadmin") {
+        if(this.type == "dataadmin") {
           api = "register_data_admin/"
         }
 
@@ -148,9 +131,9 @@ export default {
           headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
           url: "api/" + api,
           data: {
-            username: this.localUsername,
-            email: this.localEmail,
-            password: this.localPassword,
+            username: this.username,
+            email: this.email,
+            password: this.password,
           },
         })
           .then(() => {

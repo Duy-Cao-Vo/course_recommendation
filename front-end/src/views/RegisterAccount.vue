@@ -1,49 +1,56 @@
 <template>
-  <div class="register-account">
-    <a-input
-      class="email-input"
-      type="email"
-      placeholder="Email"
-      @change="inputEmail"
-    />
-    <a-input
-      class="password-input"
-      type="password"
-      placeholder="Password"
-      @change="inputPassword"
-    />
-    <a-button
-      type="primary"
-      class="register-btn"
-      @click="onClickRegister"
-    >
-      Register
-    </a-button>
+  <div class="signup-card">
+    <a-card title="Create new account" :bordered="false">
+      <div style="margin-bottom: 16px">
+        <a-input addon-before="Email" type="email" @change="updateEmail" />
+      </div>
+      <div style="margin-bottom: 16px">
+        <a-input addon-before="Password" type="password" @change="updatePass" />
+      </div>
+      <a-button
+        type="primary"
+        class="button-create-account"
+        @click="onClickRegist"
+        >Create Account</a-button
+      >
+    </a-card>
   </div>
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "RegisterAccount",
   props: {
     email: String,
     password: String,
   },
-  data() {
-    return {
-      localEmail: this.email,
-      localPassword: this.password,
-    };
+  mounted() {
+    if (localStorage.getItem("token")) {
+      this.$router.push({
+        path: `/`,
+      });
+    }
   },
   methods: {
-    inputEmail(event) {
-      this.localEmail = event.target.value;
+    async onClickRegist() {
+      await axios
+        .post(`api/register/`, {
+          email: this.email,
+          password: this.password,
+        })
+        .then(() => {
+          console.log("True");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
-    inputPassword(event) {
-      this.localPassword = event.target.value;
+    updateEmail(val) {
+      this.email = val.target.value;
     },
-    onClickRegister() {
-      // Handle registration logic here
+    updatePass(val) {
+      this.password = val.target.value;
     },
   },
 };

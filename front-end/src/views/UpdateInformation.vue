@@ -21,7 +21,7 @@
         size="large"
         class="update-username"
         addon-before="Username"
-        :value="localUsername"
+        :value="username"
         key="username"
         @change="updateUsername"
         style="margin-bottom: 10px !important; font-size: 17px !important"
@@ -39,7 +39,7 @@
         </span>
         <a-select
           size="large"
-          :value="localChosenCurrentCareer"
+          :value="chosenCurrentCareer"
           style="width: 200px !important; margin-bottom: 10px !important"
           key="current_career"
           @change="onChooseCurrentCareer"
@@ -67,7 +67,7 @@
         </span>
         <a-select
           key="level"
-          :value="localChosenLevel"
+          :value="chosenLevel"
           size="large"
           @change="onChooseLevel"
         >
@@ -179,7 +179,7 @@
         :closable="false"
         :maskClosable="false"
       >
-        <template v-slot:title>
+        <template slot="title">
           <div class="skill-header">
             <p
               style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px"
@@ -192,7 +192,7 @@
                 class="btn-reset"
                 @click="
                   () => {
-                    this.localCheckedKnowledges = [];
+                    this.checkedKnowledges = [];
                     this.notifyReset();
                   }
                 "
@@ -206,13 +206,13 @@
             </div>
           </div>
         </template>
-        <template v-slot:footer>
+        <template slot="footer">
           <a-button
             class="btn-cancel"
             @click="
               () => {
                 handleCancel();
-                this.localCheckedKnowledges = this.searchKnowledges;
+                this.checkedKnowledges = this.searchKnowledges;
               }
             "
             >Cancel</a-button
@@ -222,7 +222,7 @@
             @click="
               () => {
                 handleCancel();
-                this.searchKnowledges = this.localCheckedKnowledges;
+                this.searchKnowledges = this.checkedKnowledges;
               }
             "
             >Confirm</a-button
@@ -230,7 +230,7 @@
         </template>
         <a-checkbox-group
           :options="displayKnowledge"
-          :value="this.localCheckedKnowledges"
+          :value="this.checkedKnowledges"
           @change="onChangeKnowledge"
         />
       </a-modal>
@@ -242,7 +242,7 @@
         :closable="false"
         :maskClosable="false"
       >
-        <template v-slot:title>
+        <template slot="title">
           <div class="skill-header">
             <p
               style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px"
@@ -255,7 +255,7 @@
                 class="btn-reset"
                 @click="
                   () => {
-                    this.localCheckedPlatforms = [];
+                    this.checkedPlatforms = [];
                     this.notifyReset();
                   }
                 "
@@ -269,13 +269,13 @@
             </div>
           </div>
         </template>
-        <template v-slot:footer>
+        <template slot="footer">
           <a-button
             class="btn-cancel"
             @click="
               () => {
                 handleCancel();
-                this.localCheckedPlatforms = this.searchPlatforms;
+                this.checkedPlatforms = this.searchPlatforms;
               }
             "
             >Cancel</a-button
@@ -285,7 +285,7 @@
             @click="
               () => {
                 handleCancel();
-                this.searchPlatforms = this.localCheckedPlatforms;
+                this.searchPlatforms = this.checkedPlatforms;
               }
             "
             >Confirm</a-button
@@ -293,7 +293,7 @@
         </template>
         <a-checkbox-group
           :options="displayPlatfrom"
-          :value="this.localCheckedPlatforms"
+          :value="this.checkedPlatforms"
           @change="onChangePlatforms"
         />
       </a-modal>
@@ -304,13 +304,13 @@
         :closable="false"
         :maskClosable="false"
       >
-        <template v-slot:footer>
+        <template slot="footer">
           <a-button
             class="btn-cancel"
             @click="
               () => {
                 handleCancel();
-                this.localCheckedTools = this.searchTools;
+                this.checkedTools = this.searchTools;
               }
             "
             >Cancel</a-button
@@ -320,13 +320,13 @@
             @click="
               () => {
                 handleCancel();
-                this.searchTools = this.localCheckedTools;
+                this.searchTools = this.checkedTools;
               }
             "
             >Confirm</a-button
           >
         </template>
-        <template v-slot:title>
+        <template slot="title">
           <div class="skill-header">
             <p
               style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px"
@@ -339,7 +339,7 @@
                 class="btn-reset"
                 @click="
                   () => {
-                    this.localCheckedTools = [];
+                    this.checkedTools = [];
                     this.notifyReset();
                   }
                 "
@@ -355,7 +355,7 @@
         </template>
         <a-checkbox-group
           :options="displayTool"
-          :value="this.localCheckedTools"
+          :value="this.checkedTools"
           @change="onChangeTools"
         />
       </a-modal>
@@ -367,7 +367,7 @@
         :closable="false"
         :maskClosable="false"
       >
-        <template v-slot:title>
+        <template slot="title">
           <div class="skill-header">
             <p
               style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px"
@@ -380,7 +380,7 @@
                 class="btn-reset"
                 @click="
                   () => {
-                    this.localCheckedPrograminglanguages = [];
+                    this.checkedPrograminglanguages = [];
                     this.notifyReset();
                   }
                 "
@@ -397,13 +397,13 @@
             </div>
           </div>
         </template>
-        <template v-slot:footer>
+        <template slot="footer">
           <a-button
             class="btn-cancel"
             @click="
               () => {
                 handleCancel();
-                this.localCheckedPrograminglanguages =
+                this.checkedPrograminglanguages =
                   this.searchPrograminglanguages;
               }
             "
@@ -415,7 +415,7 @@
               () => {
                 handleCancel();
                 this.searchPrograminglanguages =
-                  this.localCheckedPrograminglanguages;
+                  this.checkedPrograminglanguages;
               }
             "
             >Confirm</a-button
@@ -423,7 +423,7 @@
         </template>
         <a-checkbox-group
           :options="displayProgramingLanguage"
-          :value="this.localCheckedPrograminglanguages"
+          :value="this.checkedPrograminglanguages"
           @change="onChangePrograminglanguages"
         />
       </a-modal>
@@ -435,7 +435,7 @@
         :closable="false"
         :maskClosable="false"
       >
-        <template v-slot:title>
+        <template slot="title">
           <div class="skill-header">
             <p
               style="margin-bottom: 0px; padding-top: 4px; padding-bottom: 4px"
@@ -448,7 +448,7 @@
                 class="btn-reset"
                 @click="
                   () => {
-                    this.localCheckedFrameworks = [];
+                    this.checkedFrameworks = [];
                     this.notifyReset();
                   }
                 "
@@ -462,13 +462,13 @@
             </div>
           </div>
         </template>
-        <template v-slot:footer>
+        <template slot="footer">
           <a-button
             class="btn-cancel"
             @click="
               () => {
                 handleCancel();
-                this.localCheckedFrameworks = this.searchFrameworks;
+                this.checkedFrameworks = this.searchFrameworks;
               }
             "
             >Cancel</a-button
@@ -478,7 +478,7 @@
             @click="
               () => {
                 handleCancel();
-                this.searchFrameworks = this.localCheckedFrameworks;
+                this.searchFrameworks = this.checkedFrameworks;
               }
             "
             >Confirm</a-button
@@ -487,7 +487,7 @@
 
         <a-checkbox-group
           :options="displayFramework"
-          :value="this.localCheckedFrameworks"
+          :value="this.checkedFrameworks"
           @change="onChangeFrameworks"
         />
       </a-modal>
@@ -515,7 +515,7 @@
           <strong style="font-size: 17px !important">Expected career:</strong>
         </span>
         <a-select
-          :value="localChosenHopeCareer"
+          :value="chosenHopeCareer"
           size="large"
           style="width: 200px !important"
           key="hope-career"
@@ -573,27 +573,18 @@ export default {
       searchTools: [],
       searchPrograminglanguages: [],
       searchFrameworks: [],
-      localUsername: this.username,
-      localChosenCurrentCareer: this.chosenCurrentCareer,
-      localChosenHopeCareer: this.chosenHopeCareer,
-      localCheckedKnowledges: this.checkedKnowledges,
-      localCheckedPlatforms: this.checkedPlatforms,
-      localCheckedTools: this.checkedTools,
-      localCheckedPrograminglanguages: this.checkedPrograminglanguages,
-      localCheckedFrameworks: this.checkedFrameworks,
-      localChosenLevel: this.chosenLevel,
     };
   },
   props: {
-    username: String,
-    checkedKnowledges: Array,
-    checkedPlatforms: Array,
-    checkedTools: Array,
-    checkedPrograminglanguages: Array,
-    checkedFrameworks: Array,
-    chosenHopeCareer: String,
-    chosenCurrentCareer: String,
-    chosenLevel: String,
+    username: null,
+    checkedKnowledges: [],
+    checkedPlatforms: [],
+    checkedTools: [],
+    checkedPrograminglanguages: [],
+    checkedFrameworks: [],
+    chosenHopeCareer: null,
+    chosenCurrentCareer: null,
+    chosenLevel: null,
   },
   created() {
     if (!localStorage.getItem("token")) {
@@ -639,7 +630,7 @@ export default {
       this.current = current;
     },
     updateUsername(value) {
-      this.localUsername = value.target.value;
+      this.username = value.target.value;
     },
     async onClickFinish() {
       this.$message.loading({ content: "Updating...", key: "updating" });
@@ -687,7 +678,7 @@ export default {
         (e) => e.creTitle
       );
     },
-async fetchUserInformation() {
+    async fetchUserInformation() {
       await axios({
         method: "GET",
         url: "api/user_information/",
@@ -697,25 +688,25 @@ async fetchUserInformation() {
         },
       })
         .then((res) => {
-          this.localUsername = res.data.name;
-          this.localChosenCurrentCareer = res.data.current_career[0]
+          this.username = res.data.name;
+          this.chosenCurrentCareer = res.data.current_career[0]
             ? res.data.current_career[0].creTitle
             : null;
-          this.localChosenHopeCareer = res.data.hope_career[0]
+          this.chosenHopeCareer = res.data.hope_career[0]
             ? res.data.hope_career[0].creTitle
             : null;
-          this.localCheckedKnowledges = res.data.knowledge.map(
+          this.checkedKnowledges = res.data.knowledge.map(
             (value) => value.value
           );
-          this.localCheckedPlatforms = res.data.platform.map((value) => value.value);
-          this.localCheckedTools = res.data.tool.map((value) => value.value);
-          this.localCheckedPrograminglanguages = res.data.programinglanguage.map(
+          this.checkedPlatforms = res.data.platform.map((value) => value.value);
+          this.checkedTools = res.data.tool.map((value) => value.value);
+          this.checkedPrograminglanguages = res.data.programinglanguage.map(
             (value) => value.value
           );
-          this.localCheckedFrameworks = res.data.framework.map(
+          this.checkedFrameworks = res.data.framework.map(
             (value) => value.value
           );
-          this.localChosenLevel = res.data.level[0] ? res.data.level[0].value : null;
+          this.chosenLevel = res.data.level[0] ? res.data.level[0].value : null;
 
           this.searchKnowledges = res.data.knowledge.map(
             (value) => value.value
@@ -733,29 +724,29 @@ async fetchUserInformation() {
         })
         .catch((err) => console.log(err));
     },
-  onChooseLevel(value) {
-      this.localChosenLevel = value;
+    onChooseLevel(value) {
+      this.chosenLevel = value;
     },
     onChooseHopeCareer(value) {
-      this.localChosenHopeCareer = value;
+      this.chosenHopeCareer = value;
     },
     onChooseCurrentCareer(value) {
-      this.localChosenCurrentCareer = value;
+      this.chosenCurrentCareer = value;
     },
     onChangeKnowledge(checkedValues) {
-      this.localCheckedKnowledges = checkedValues;
+      this.checkedKnowledges = checkedValues;
     },
     onChangePlatforms(checkedValues) {
-      this.localCheckedPlatforms = checkedValues;
+      this.checkedPlatforms = checkedValues;
     },
     onChangeTools(checkedValues) {
-      this.localCheckedTools = checkedValues;
+      this.checkedTools = checkedValues;
     },
     onChangePrograminglanguages(checkedValues) {
-      this.localCheckedPrograminglanguages = checkedValues;
+      this.checkedPrograminglanguages = checkedValues;
     },
     onChangeFrameworks(checkedValues) {
-      this.localCheckedFrameworks = checkedValues;
+      this.checkedFrameworks = checkedValues;
     },
     fetchSkill() {
       this.knowledges = JSON.parse(localStorage.getItem("knowledges"))

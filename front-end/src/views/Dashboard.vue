@@ -271,7 +271,7 @@
                 </a-table-column>
                 </a-table-column-group> -->
           <a-table-column key="action" title="Action">
-            <template v-slot="text, record">
+            <template slot-scope="text, record">
               <span>
                 <b-button
                   @click="(showTeachSkill = true), custom(record)"
@@ -508,12 +508,12 @@
 </template>
 
 <script>
-import { $array } from "alga-js";
+import { $array } from "alga-js/dist/alga.min.js";
 import axios from "axios";
-import Treeselect from "vue3-treeselect";
+import Treeselect from "@riophae/vue-treeselect";
 
 export default {
-  name: "DashboardPage",
+  name: "Dashboard",
   props: {},
   data() {
     return {

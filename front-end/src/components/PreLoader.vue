@@ -13,7 +13,7 @@
 
 <script>
 export default {
-  name: 'CoursePreloader',
+  name: 'Preloader',
   props: {
     color: {
       type: String,

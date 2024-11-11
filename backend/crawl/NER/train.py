@@ -27,7 +27,7 @@ def split_document(document):
 
 def predict(input_file, timestamp):
     nlp = pipeline("ner", model=save_model, tokenizer=tokenizer, aggregation_strategy='simple',
-                   ignore_labels=['X', 'O'])
+                   ignore_labels=['X', 'O'], device=0)
     df = pd.read_csv(input_file)
     TRAIN_DATA = []
     for i in range(len(df)):

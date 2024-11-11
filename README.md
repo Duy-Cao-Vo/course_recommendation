@@ -2,6 +2,12 @@
 require Python and JavaScript to run
 
 # Open an cmd window in folder GraduationThesis:
+## If you just start project, setup backend
+```
+cd backend
+python=3.8
+pip install -r requirements.txt
+```
 `````
 cd backend
 `````

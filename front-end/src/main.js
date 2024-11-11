@@ -12,7 +12,7 @@ import VueBlobJsonCsv from 'vue-blob-json-csv';
 import JsonCSV from "vue-json-csv"
 import { ButtonPlugin, NavbarPlugin, SidebarPlugin, TabsPlugin, DropdownPlugin, IconsPlugin, FormSelectPlugin, BootstrapVue } from 'bootstrap-vue'
 import VueApexCharts from "vue-apexcharts";
-axios.defaults.baseURL = 'http://coursearch.ntmthu.net:8000'
+axios.defaults.baseURL = 'http://localhost:8000'
 Vue.config.productionTip = false
 Vue.use(VueBlobJsonCsv)
 Vue.component('downloadCsv', JsonCSV)

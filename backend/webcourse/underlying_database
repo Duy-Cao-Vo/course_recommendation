@@ -15,7 +15,7 @@ from neomodel import db
 from neomodel import StructuredNode, StringProperty, DateProperty, RelationshipTo, RelationshipFrom,FloatProperty
 from neomodel import StructuredRel
 import models
-db.set_connection('bolt://neo4j:1@localhost:7687')
+db.set_connection('bolt://neo4j:Caoduy123@localhost:7687')
 path="C:/Project/Raw Data/"
 #import skill
 def importCareer(filename):

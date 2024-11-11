@@ -8,11 +8,11 @@ from neomodel import config
 import ast
 
 
-config.DATABASE_URL ='bolt://neo4j:1@localhost:7687'
+config.DATABASE_URL ='bolt://neo4j:Caoduy123@localhost:7687'
 from neomodel import db
 # Create your models here.
 import webcourse.models as models
-db.set_connection('bolt://neo4j:1@localhost:7687')
+db.set_connection('bolt://neo4j:Caoduy123@localhost:7687')
 
 def importCareer(filename):
     data = pd.read_csv(filename,encoding='latin-1')

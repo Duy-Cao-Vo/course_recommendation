@@ -18,12 +18,12 @@ from neomodel.properties import FloatProperty, EmailProperty, IntegerProperty,Da
 import pandas as pd
 # from neomodel import config
 from neomodel import Q, db
-# config.DATABASE_URL ='bolt://neo4j:1@localhost:7687'
+# config.DATABASE_URL ='bolt://neo4j:Caoduy123@localhost:7687'
 # Create your models here.
 from neomodel import StructuredNode, StringProperty, DateProperty, RelationshipTo, RelationshipFrom,FloatProperty
 from neomodel import StructuredRel
 import random
-db.set_connection("bolt://neo4j:1@localhost:7687")
+db.set_connection("bolt://neo4j:Caoduy123@localhost:7687")
 
 from django.db import models
 from usermanagement.models import MyUser

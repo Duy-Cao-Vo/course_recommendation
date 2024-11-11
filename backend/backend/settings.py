@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'usermanagement',
     'crawl'
 ]
-NEOMODEL_NEO4J_BOLT_URL = os.environ.get('NEO4J_BOLT_URL', 'bolt://neo4j:1@localhost:7687')
+NEOMODEL_NEO4J_BOLT_URL = os.environ.get('NEO4J_BOLT_URL', 'bolt://neo4j:Caoduy123@localhost:7687')
 
 CORS_ORIGIN_ALLOW_ALL = True
 

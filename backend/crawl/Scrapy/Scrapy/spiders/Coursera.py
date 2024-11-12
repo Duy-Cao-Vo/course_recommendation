@@ -126,7 +126,8 @@ class CourseraCrawler(CrawlSpider):
         print("DEBUG Link: ", Link)
         Rating = response.xpath("//div[@class='css-139h6xi']//div[@class='cds-119 cds-Typography-base css-h1jogs cds-121']/text()").extract_first()
         TotalEnrolled = response.xpath("//div[@class='css-1qi3xup']//span/strong/span/text()").extract_first()
-        Instructor = response.xpath("//div[@class='css-guxf6x']//span[@class='css-4s48ix']/a/span/text()").extract()
+        Instructor = response.xpath("//div[@class='css-guxf6x']//span[@class='css-4s48ix']/a/span/text()").extract_first()
+        print("DEBUG Instructor: ", Instructor)
         Fee = response.xpath(
             "//button[@data-e2e='enroll-button']//span[@data-test='enroll-button-label']/text()").extract_first()
 
@@ -139,7 +140,9 @@ class CourseraCrawler(CrawlSpider):
         LinkProgram = Link + BaseLink
 
         OfferBy = response.xpath("//div[@class='css-15g7tpu']//span[@class='css-6ecy9b']/text()").extract()
+
         LinkInstructors = response.xpath("//div[@class='cds-119 cds-113 cds-115 css-1yholzq cds-142']/a/@href").extract()
+        print("DEBUG LinkInstructors: ", LinkInstructors)
         Subtitle = response.xpath("//span[contains(., 'Subtitles')]/text()").extract_first()
         checkLinkProject = "projects" in str(response.url)
         print("DEBUG checkLinkProject: ", response.url)

@@ -139,7 +139,7 @@ class UdemyCrawler(scrapy.Spider):
                             )
                 for item in link]
 
-
+    # scrapy crawl UdemySpider -a type=1 -a link=https://www.udemy.com/course/fearless-public-speaker-bootcamp-by-ricky-mendoza/
     # cd Coursera/Coursera/spiders
     # scrapy runspider Udemy.py
     # scrapy runspider Udemy.py -o udemy_web_software_BI_android.csv -t csv

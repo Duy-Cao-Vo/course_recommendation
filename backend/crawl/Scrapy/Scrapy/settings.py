@@ -19,6 +19,7 @@ NEWSPIDER_MODULE = 'Scrapy.spiders'
 USER_AGENT = 'Mozilla/5.0' "https://www.udemy.com/courses/search/?q=python&src=sac&kw=python"
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
+DOWNLOADER_CLIENT_TLS_METHOD = 'TLS'
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32

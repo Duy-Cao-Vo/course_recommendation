@@ -142,6 +142,7 @@ def CrawlTrainImport(request):
     crawl_output = get_input_file(input_file)
 
     crawl_start_time = time.time()
+    print("DEBUG crawl statement", " ".join(['scrapy', 'crawl', spider, '-a', 'type='+str(crawl_type), '-a','category='+category, '-a','link='+link, '-a','depth='+str(depth), '-o', os.path.join('inputs', input_file)]))
     call(['scrapy', 'crawl', spider, '-a', 'type='+str(crawl_type), '-a','category='+category, '-a','link='+link, '-a','depth='+str(depth), '-o', os.path.join('inputs', input_file)], cwd=get_scrapy_dir())
     crawl_end_time = time.time() - crawl_start_time
     train_start_time = time.time()

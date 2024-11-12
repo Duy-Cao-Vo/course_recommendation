@@ -23,8 +23,14 @@ def getInfoInstructor(url):
 
 
 def normalizeText(text):
+    # If input is a list, join it into a single string
+    if isinstance(text, list):
+        text = ' '.join(text)
+
+    # Rest of the normalization code remains the same
     text = re.sub(r"(\t)+?|(\\t)+?|(\r)+?|(\\r)+?|(\n)+?|(\\n)+?|(<[^\/].*?>)|(\\xa0)+?|(\xa0)+?|(&nbsp;)|(- )+"
                   r"|(&lt;\/p&gt)+|( &lt;\/p&gt.)+", "", text)
+
     text = re.sub(r"<\/strong> ", " ", text)
     text = re.sub(r"(<\/.*?>)", "\n", text)
     text = re.sub(r"\n+", "\n", text)
@@ -106,44 +112,59 @@ class CourseraCrawler(CrawlSpider):
             f.close()
             return [scrapy.Request(url=item, callback=self.parse) for item in link]
 
-
     def parse(self, response):
-        Category = response.xpath("//div[@class ='_exc94g9']//div[@class ='_1ruggxy'][2]//a/text()").extract_first()
+        with open(
+                '/Users/duy.vo/PycharmProjects/course_recommendation/backend/crawl/Scrapy/Scrapy/spiders/response.html',
+                'w') as file:
+            file.write(response.text)
+        print("DEBUG 123")
+        Category = response.xpath("//li[@class='css-mbr59c']//button[@data-e2e='megamenu-item~social-sciences']//span/text()").extract_first()
         Course_name = response.xpath(
-            "//div[@class ='_1bjlpa11 BannerTitle text-xs-left banner-title-container--without-subtitle'"
-            "or @class ='_1bjlpa11 BannerTitle text-xs-left banner-title-container--without-subtitle exp-banner-title-container'"
-            "or @class ='_1bjlpa11 BannerTitle text-xs-left'"
-            "or @class ='_kfriz5q']"
-            "/h1/text()").extract_first()
-        Link = response.url
-        Rating = response.xpath("//div[@class ='_1srkxe1s XDPRating']/span/text()").extract_first()
-        TotalEnrolled = response.xpath(
-            "//div[@class ='_1fpiay2' or @class ='_1b2af1e']/span/strong/span/text()").extract_first()
-        Instructor = response.xpath("//h3[@class ='instructor-name headline-3-text bold']/text()").extract()
-        Fee = response.xpath("//div[@class='BannerEnroll']//span[@class='_1lutnh9y']"
-                       "//div/text()").extract_first()
-        Program = response.xpath("//p[@class ='d-block color-white']/span/a/text()").extract_first()
-        LinkProgram = response.xpath("//p[@class ='d-block color-white']/span/a/@href").extract_first()
-        OfferBy = response.xpath("//div[@class='PartnerList']//h3[@class='headline-4-text bold rc-Partner__title']"
-                       "/text()").extract()
-        LinkInstructors = response.xpath("//div[@class='_1vl6vh3k p-y-1 p-r-1']/a/@href").extract()
+            "//h1[@class='cds-119 cds-Typography-base css-1xy8ceb cds-121']/text()"
+        ).extract_first()
+        Link = str(response.url)
+        print("DEBUG Link: ", Link)
+        Rating = response.xpath("//div[@class='css-139h6xi']//div[@class='cds-119 cds-Typography-base css-h1jogs cds-121']/text()").extract_first()
+        TotalEnrolled = response.xpath("//div[@class='css-1qi3xup']//span/strong/span/text()").extract_first()
+        Instructor = response.xpath("//div[@class='css-guxf6x']//span[@class='css-4s48ix']/a/span/text()").extract()
+        Fee = response.xpath(
+            "//button[@data-e2e='enroll-button']//span[@data-test='enroll-button-label']/text()").extract_first()
+
+        Program = response.xpath("//div[@data-track='true']//a[@class='cds-119 cds-113 cds-115 css-y0doir cds-142']/text()").extract_first()
+
+        BaseLink = response.xpath("//div[@data-track-component='kim_view_syllabus']/a/@href").extract_first()
+        print("DEBUG BaseLink: ", BaseLink)
+        print("DEBUG type(BaseLink)", type(BaseLink))
+        print("DEBUG type(Link)", type(Link))
+        LinkProgram = Link + BaseLink
+
+        OfferBy = response.xpath("//div[@class='css-15g7tpu']//span[@class='css-6ecy9b']/text()").extract()
+        LinkInstructors = response.xpath("//div[@class='cds-119 cds-113 cds-115 css-1yholzq cds-142']/a/@href").extract()
         Subtitle = response.xpath("//span[contains(., 'Subtitles')]/text()").extract_first()
         checkLinkProject = "projects" in str(response.url)
-        if checkLinkProject is True:
+        print("DEBUG checkLinkProject: ", response.url)
+
+        if True:
             Total_Studytime = response.xpath(
-                "//div[@class ='_pu0m129 _b4xh8r'][1]//div[@class ='_8m7gipb _1f096on'][1]//"
-                "span/text()").extract_first()
+                "//div[@class='css-86zyin']//div[@class='css-fw9ih3']//div/text()"
+            ).extract_first()
+            # Total_Studytime = Total_Studytime.replace('Approx. ', '')
+            print("DEBUG Total_Studytime: ", Total_Studytime)
             Level_Requirement = response.xpath(
-                "//div[@class ='_pu0m129 _b4xh8r'][1]//div[@class ='_8m7gipb _1f096on'][2]//"
-                "span/text()").extract_first()
+                "//div[@class ='css-86zyin']//div[@class ='css-fw9ih3']/text()").extract_first()
+            print("DEBUG Level_Requirement: ", Level_Requirement)
+
             Skill_Requirement = response.xpath(
                 "//div[@class ='ProductGlance']//div[@class ='_y1d9czk m-b-2 p-t-1s '][4]//"
                 "div[@class ='rc-CML show-soft-breaks']//p/text()").extract_first()
-            Skill_Learn = response.xpath("//div[@class ='_znrg0e']//p/text()").extract()
-            Skill_Gain = response.xpath("//div[@class ='Skills _14ced0o']//div[@class ='_t6niqc3']"
-                                        "//span[@class ='_1q9sh65']/text()").extract()
+            print("DEBUG Skill_Requirement: ", Skill_Requirement)
+            Skill_Learn = response.xpath("//div[@class='css-1m3kxpf']//div[@class='rc-CML unified-CML']//p/span/span/text()").extract()
+            print("DEBUG Skill_Learn: ", Skill_Learn)
+
+            Skill_Gain = response.xpath("//ul[@class='css-yk0mzy']//a/text()").extract()
+            print("DEBUG Skill_Gain: ", Skill_Gain)
         else:
-            checkContent = response.xpath("//h3[contains(., 'What you will learn')]/text()").extract_first()
+            checkContent = response.xpath("//h3[contains(., 'What you 'll learn')]/text()").extract_first()
             checkContent1 = response.xpath("//div[@class='AboutCourse']//h2/text()").extract_first()
             if checkContent is not None:
                 Skill_Learn = response.xpath(
@@ -155,7 +176,6 @@ class CourseraCrawler(CrawlSpider):
             else:
                 Skill_Learn = response.css("div.m-t-1 description").get()
 
-
             Total_Studytime = response.xpath(
                 "//span[contains(., 'Approx')]/text()").extract_first()
             Level_Requirement = response.xpath(
@@ -165,31 +185,30 @@ class CourseraCrawler(CrawlSpider):
                 "div[@class ='rc-CML show-soft-breaks']//p/text()").extract_first()
             Skill_Gain = response.xpath(
                 "//div[@class = 'Skills m-y-2 p-x-2 p-t-1 p-b-2 border-a css-1rj0z6b' or @class='Skills p-x-2 p-t-1 p-b-2 skills-combined-with-learning-objs border-a css-1rj0z6b' and contains(., 'Skills you will gain')]").extract_first()
-       
+
         if Level_Requirement is not None:
             Level_Requirement = Level_Requirement.split(" ")[0]
-        if Total_Studytime is not None: 
+        if Total_Studytime is not None:
             Total_Studytime = re.search(r'\d+.?(hours|months|month|hour)', Total_Studytime)
             Total_Studytime = Total_Studytime.group()
         if Skill_Learn is not None:
             Skill_Learn = normalizeText(Skill_Learn)
             Skill_Learn = re.sub("(\['|(\n)+?|']|\[|\]|(\u200b)+?)+?", '', Skill_Learn)
+            print("DEBUG Skill_Learn2", Skill_Learn)
         if Skill_Gain is not None:
-            Skill_Gain = Skill_Gain.replace("  Skills you will gain        ", "")
             Skill_Gain = normalizeText(Skill_Gain)
+            print("DEBUG Skill_Gain2", Skill_Gain)
         if Subtitle is not None:
             Subtitle = Subtitle.replace("Subtitles: ", "")
-        if LinkProgram is not None:
-            LinkProgram = 'https://www.coursera.org' + LinkProgram
 
         relationIns_Org = []
         for item in LinkInstructors:
             relationIns_Org.append(getInfoInstructor('https://www.coursera.org' + item))
 
-        if detect(Skill_Learn) == 'en':
+        if Skill_Learn and detect(Skill_Learn) == 'en':
             yield {'name': Course_name, 'link': Link, 'rating': Rating, 'enroll': TotalEnrolled,
-               'instructor': Instructor, 'time': Total_Studytime,
-               'levelrequirement': Level_Requirement, 'skillrequirement': Skill_Requirement,
-               'SkillWillLearn': Skill_Learn, 'Description': '',  'SkillGain': Skill_Gain,
-               'Subject': Category, 'organization': OfferBy, 'fee': Fee, 'program': Program,
-               'linkprogram': LinkProgram, 'RelationInsOrg': relationIns_Org, 'Subtitle': Subtitle}
+                   'instructor': Instructor, 'time': Total_Studytime,
+                   'levelrequirement': Level_Requirement, 'skillrequirement': Skill_Requirement,
+                   'SkillWillLearn': Skill_Learn, 'Description': '', 'SkillGain': Skill_Gain,
+                   'Subject': Category, 'organization': OfferBy, 'fee': Fee, 'program': Program,
+                   'linkprogram': LinkProgram, 'RelationInsOrg': relationIns_Org, 'Subtitle': Subtitle}

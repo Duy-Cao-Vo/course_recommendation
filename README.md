@@ -5,7 +5,7 @@ require Python and JavaScript to run
 ## If you just start project, setup backend
 ```
 cd backend
-python=3.8
+python>=3.9
 pip install -r requirements.txt
 ```
 `````
@@ -16,6 +16,9 @@ python manage.py makemigrations
 `````
 `````
 python manage.py migrate
+`````
+`````
+python manage.py createsuperuser
 `````
 `````
 python manage.py runserver

@@ -2,3 +2,4 @@ crawl/Scrapy/Scrapy/spiders/inputs/*
 crawl/Scrapy/Scrapy/input/*
 crawl/outputs
 
+crawl/Scrapy/Scrapy/spiders/responses*

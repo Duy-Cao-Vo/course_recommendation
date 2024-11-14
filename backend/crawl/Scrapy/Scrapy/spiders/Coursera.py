@@ -80,6 +80,7 @@ class CourseraCrawler(CrawlSpider):
 
     allowed_domains = ['coursera.org']
     #scrapy crawl CourseraSpider -a type=1 -a link=https://www.coursera.org/professional-certificates/google-data-analytics
+    #scrapy crawl CourseraSpider -a type=1 -a link=https://www.coursera.org/specializations/python
     #scrapy crawl CourseraSpider -a type=2 -a category=critical%20thinking -a depth=5
     #scrapy crawl CourseraSpider
     #scrapy crawl CourseraSpider -o coursera_datascience.csv -t csv
@@ -155,9 +156,14 @@ class CourseraCrawler(CrawlSpider):
         print("DEBUG checkLinkProject: ", response.url)
 
         if True:
-            Total_Studytime = response.xpath(
-                "//div[@class='css-86zyin']//div[@class='css-fw9ih3']//div/text()"
-            ).extract_first()
+            Total_Studytimes = response.xpath(
+                "//div[@class='css-86zyin']//div[@class='css-fw9ih3']/text() | //div[@class='css-86zyin']//div[@class='css-fw9ih3']/div/text()"
+            ).extract()
+            print("DEBUG Total_Studytimes: ", Total_Studytimes)
+            Total_Studytime = None
+            for v in Total_Studytimes:
+                if re.search(r'\d+.?(hours|months|month|hour)', v):
+                    Total_Studytime = v
             # Total_Studytime = Total_Studytime.replace('Approx. ', '')
             print("DEBUG Total_Studytime: ", Total_Studytime)
             Level_Requirement = response.xpath("//div[@class='css-7bag3v']//div[@class=' css-fk6qfz']/text()").extract_first()

@@ -89,17 +89,20 @@ class CourseraCrawler(CrawlSpider):
         if self.type == '2':
             link = []
             for i in range(1, int(self.depth) + 1):
-                html = urlopen('https://www.coursera.org/courses?query='+ self.category +'&page='+ str(i) +'&index=prod_all_launched_products_term_optimization')
+                url = 'https://www.coursera.org/courses?query='+ self.category +'&page='+ str(i) +'&index=prod_all_launched_products_term_optimization'
+                print("DEBUG url", url)
+                html = urlopen(url)
                 bs = BeautifulSoup(html, 'html.parser')
-                links = bs.find('ul', {'class': 'ais-InfiniteHits-list'})
+                links = [a['href'] for a in bs.find_all('a', {'class': 'cds-119 cds-113 cds-115 cds-CommonCard-titleLink css-si869u cds-142'})]
+
+                print("DEBUG cate links", links)
                 if links is not None:
-                    tmp = links.find_all('a', href=True)
-                    for item in tmp:
-                        if '/learn/' in item['href']:
-                            link.append('https://www.coursera.org' + item['href'])
+                    for item in links:
+                        if '/learn' in item:
+                            link.append('https://www.coursera.org' + item)
                 else:
                     break
-                print(link)
+            print("DEBUG all link", link)
             return [scrapy.Request(url=item, callback=self.parse)
                     for item in link]
         if self.type == '3':
@@ -118,7 +121,11 @@ class CourseraCrawler(CrawlSpider):
                 'w') as file:
             file.write(response.text)
         print("DEBUG 123")
-        Category = response.xpath("//li[@class='css-mbr59c']//button[@data-e2e='megamenu-item~social-sciences']//span/text()").extract_first()
+        Category = response.xpath(
+            "//a[@class='cds-119 cds-113 cds-115 cds-breadcrumbs-link css-1lcpylw cds-142']/text()").extract()
+        print("DEBUG Category: ", Category)
+        if Category:
+            Category = Category[-1]
         Course_name = response.xpath(
             "//h1[@class='cds-119 cds-Typography-base css-1xy8ceb cds-121']/text()"
         ).extract_first()
@@ -153,14 +160,15 @@ class CourseraCrawler(CrawlSpider):
             ).extract_first()
             # Total_Studytime = Total_Studytime.replace('Approx. ', '')
             print("DEBUG Total_Studytime: ", Total_Studytime)
-            Level_Requirement = response.xpath(
-                "//div[@class ='css-86zyin']//div[@class ='css-fw9ih3']/text()").extract_first()
+            Level_Requirement = response.xpath("//div[@class='css-7bag3v']//div[@class=' css-fk6qfz']/text()").extract_first()
             print("DEBUG Level_Requirement: ", Level_Requirement)
 
-            Skill_Requirement = response.xpath(
-                "//div[@class ='ProductGlance']//div[@class ='_y1d9czk m-b-2 p-t-1s '][4]//"
-                "div[@class ='rc-CML show-soft-breaks']//p/text()").extract_first()
+            Skill_Requirement = response.xpath("//div[@class='css-7bag3v']//p[@class=' css-vac8rf']/text()").extract()
             print("DEBUG Skill_Requirement: ", Skill_Requirement)
+            if len(Skill_Requirement)>=2:
+                Skill_Requirement = Skill_Requirement[1]
+            print("DEBUG Skill_Requirement: ", Skill_Requirement)
+
             Skill_Learn = response.xpath("//div[@class='css-1m3kxpf']//div[@class='rc-CML unified-CML']//p/span/span/text()").extract()
             print("DEBUG Skill_Learn: ", Skill_Learn)
 

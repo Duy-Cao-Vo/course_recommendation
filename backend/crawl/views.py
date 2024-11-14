@@ -126,6 +126,7 @@ def CrawlTrainImport(request):
         domain = domain.group()
         domain = re.sub('www\.|\.', '', domain)
     if crawl_type == 2:
+        print("DEBUG request_body['category']", request_body['category'])
         domain = (request_body['category'].split('_')[0]).lower()
         category = request_body['category'].split('_')[1]
         category = (category.lower()).replace(' ', '%20')

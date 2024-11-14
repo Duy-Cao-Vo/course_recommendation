@@ -57,7 +57,7 @@ def importCareer(filename):
 def importCourse(filename, minscore, time):
     data = pd.read_csv(filename,encoding='latin-1')
     for i in data.index:
-        print(i)
+        print("DEBUG import data index", i)
         name=str(data[i:i+1]['name'].values[0])
         link=str(data[i:i+1]['link'].values[0])
         fee=str(data[i:i+1]['fee'].values[0]).replace("$","")
